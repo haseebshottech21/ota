@@ -4,10 +4,12 @@ import '../../constants.dart';
 class ButtonGradient extends StatelessWidget {
   final Widget widget;
   final VoidCallback? onPressed;
+  final String? disbleBtnText;
   final bool buttonEable;
   const ButtonGradient({
     Key? key,
     this.buttonEable = false,
+    this.disbleBtnText = '',
     required this.widget,
     required this.onPressed,
   }) : super(key: key);
@@ -56,11 +58,10 @@ class ButtonGradient extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: null,
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.black,
                   onSurface: const Color(0xFFbc5590),
                 ),
                 child: Text(
-                  'Log In',
+                  disbleBtnText!,
                   style: Constant.formButtonDisableStyle,
                 ),
               ),

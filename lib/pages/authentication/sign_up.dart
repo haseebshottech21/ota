@@ -36,15 +36,26 @@ class _SignupScreenState extends State<SignupScreen> {
         },
       ),
       appBar: AppBar(
-        title: const Text('Create An Account'),
+        backgroundColor: Colors.white,
+        elevation: 2,
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
+        title: const Text(
+          'Create An Account',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
           height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.only(top: 20, left: 24, right: 24),
+          padding: const EdgeInsets.only(top: 50, left: 24, right: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               MyFadeIn(
                 durationSecond: 1,
@@ -65,23 +76,24 @@ class _SignupScreenState extends State<SignupScreen> {
                       icon: Icons.email_outlined,
                       controller: emailController,
                     ),
-                    IconTextfield(
-                      hintText: 'Password',
-                      icon: Icons.lock_outline,
-                      controller: passController,
-                      passwordField: true,
-                    ),
-                    IconTextfield(
-                      hintText: 'Password',
-                      icon: Icons.lock_outline,
-                      controller: confirmPassController,
-                      passwordField: true,
-                    ),
+                    // IconTextfield(
+                    //   hintText: 'Password',
+                    //   icon: Icons.lock_outline,
+                    //   controller: passController,
+                    //   passwordField: true,
+                    // ),
+                    // IconTextfield(
+                    //   hintText: 'Password',
+                    //   icon: Icons.lock_outline,
+                    //   controller: confirmPassController,
+                    //   passwordField: true,
+                    // ),
                     const SizedBox(height: 15),
                     Consumer<AuthViewModel>(
                       builder: (context, authViewModel, _) {
                         // print(authViewModel.loading);
                         return ButtonGradient(
+                          disbleBtnText: 'Sign Up',
                           widget: authViewModel.loading
                               ? const CupertinoActivityIndicator(
                                   color: Colors.white,
@@ -93,7 +105,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           onPressed: authViewModel.loading
                               ? null
                               : () {
-                                  authViewModel.login(context);
+                                  // authViewModel.login(context);
                                 },
                         );
                       },

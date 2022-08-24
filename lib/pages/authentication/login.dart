@@ -5,6 +5,7 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:ota/constants.dart';
 import 'package:ota/pages/authentication/component/auth_bottom.dart';
+import 'package:ota/utils/utils.dart';
 // import 'package:ota/utils/colors.dart';
 import 'package:ota/view_model/auth_view_model.dart';
 import 'package:ota/widgets/common/buttons.dart';
@@ -23,7 +24,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool isLoading = true;
+  // bool isLoading = true;
   bool buttonEnable = false;
 
   final emailController = TextEditingController();
@@ -52,6 +53,32 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  clear() {
+    emailController.clear();
+    passController.clear();
+  }
+
+  // login() {
+  //   if (emailController.text.isEmpty) {
+  //     Utils.flushBarMessage('Please enter email', context);
+  //   } else if (passController.text.isEmpty) {
+  //     Utils.flushBarMessage('Please enter password ', context);
+  //   } else if (passController.text.length < 6) {
+  //     Utils.flushBarMessage('Please enter 6 digit password ', context);
+  //   } else {
+  //     print('API hit success');
+  //     // Map data = {
+  //     //   'email': emailController.text.toString(),
+  //     //   'password':
+  //     //       passController.text.toString(),
+  //     // };
+  //     authViewModel.login(context, clear);
+  //   }
+  // }
+
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     // final theme = Theme.of(context);
@@ -66,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.only(top: 70, left: 24, right: 24),
+          padding: const EdgeInsets.only(top: 60, left: 24, right: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -108,14 +135,33 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     IconTextfield(
                       hintText: 'Email address',
+                      node: emailFocusNode,
                       icon: Icons.email_outlined,
                       controller: emailController,
+                      onFieldSubmitted: (value) {
+                        Utils.fieldFocusChange(
+                          context,
+                          emailFocusNode,
+                          passFocusNode,
+                        );
+                      },
                     ),
                     IconTextfield(
                       hintText: 'Password',
                       icon: Icons.lock_outline,
+                      node: passFocusNode,
                       controller: passController,
                       passwordField: true,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Forgot Password?',
+                          style: Constant.textButtonStyle,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 15),
                     Consumer<AuthViewModel>(
@@ -123,6 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         // print(authViewModel.loading);
                         return ButtonGradient(
                           buttonEable: buttonEnable,
+                          disbleBtnText: 'Log In',
                           widget: authViewModel.loading
                               ? const CupertinoActivityIndicator(
                                   color: Colors.white,
@@ -134,7 +181,42 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: authViewModel.loading
                               ? null
                               : () {
-                                  authViewModel.login(context);
+                                  if (emailController.text.isEmpty) {
+                                    Utils.errorFlushBarMessage(
+                                      'Please enter email',
+                                      context,
+                                    );
+                                  } else if (!RegExp(
+                                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                      .hasMatch(emailController.text)) {
+                                    Utils.errorFlushBarMessage(
+                                      'Please enter valid email address',
+                                      context,
+                                    );
+                                  } else if (passController.text.isEmpty) {
+                                    Utils.errorFlushBarMessage(
+                                      'Please enter password ',
+                                      context,
+                                    );
+                                  } else if (passController.text.length < 8) {
+                                    Utils.errorFlushBarMessage(
+                                      'Please enter 8 digit password ',
+                                      context,
+                                    );
+                                  } else {
+                                    // print('API hit success');
+
+                                    Map data = {
+                                      "email": emailController.text,
+                                      "password": passController.text,
+                                      // "password": "cityslicka"
+                                    };
+                                    authViewModel.loginApi(
+                                      data,
+                                      clear,
+                                      context,
+                                    );
+                                  }
                                 },
                         );
                       },
@@ -142,18 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Forgot Password',
-                    style: Constant.textButtonStyle,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 30),
               Row(
                 children: [
                   Expanded(
@@ -206,8 +277,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
+    debugPrint('dispose method');
     emailController.dispose();
     passController.dispose();
+
+    emailFocusNode.dispose();
+    passFocusNode.dispose();
     super.dispose();
   }
 }

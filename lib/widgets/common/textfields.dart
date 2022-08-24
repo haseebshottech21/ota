@@ -7,6 +7,8 @@ class IconTextfield extends StatefulWidget {
   final IconData icon;
   final String hintText;
   final TextEditingController controller;
+  final FocusNode? node;
+  void Function(String)? onFieldSubmitted;
   final bool passwordField;
   bool obscureText;
 
@@ -15,6 +17,8 @@ class IconTextfield extends StatefulWidget {
     this.fontSize = 15.0,
     this.obscureText = true,
     this.passwordField = false,
+    this.onFieldSubmitted,
+    this.node,
     required this.icon,
     required this.hintText,
     required this.controller,
@@ -33,12 +37,12 @@ class _IconTextfieldState extends State<IconTextfield> {
     setState(() {});
   }
 
-  FocusNode node = FocusNode();
+  // FocusNode node = FocusNode();
 
   @override
   void initState() {
     // focusNodes.forEach((node) {
-    node.addListener(() {
+    widget.node!.addListener(() {
       setState(() {});
     });
     // });
@@ -50,10 +54,10 @@ class _IconTextfieldState extends State<IconTextfield> {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextField(
+      child: TextFormField(
         style: theme.textTheme.subtitle1,
         obscureText: widget.passwordField ? widget.obscureText : false,
-        focusNode: node,
+        focusNode: widget.node,
         cursorColor: MyColors.mainColor,
         // cursorWidth: 1.5,
         controller: widget.controller,
@@ -63,7 +67,7 @@ class _IconTextfieldState extends State<IconTextfield> {
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           prefixIcon: Icon(
             widget.icon,
-            color: node.hasFocus
+            color: widget.node!.hasFocus
                 ? MyColors.mainColor
                 : theme.inputDecorationTheme.prefixIconColor,
           ),
@@ -84,13 +88,15 @@ class _IconTextfieldState extends State<IconTextfield> {
                     padding: const EdgeInsets.only(right: 5),
                     child: Icon(
                       passwordVisible ? showPassword : hidePassword,
-                      color:
-                          node.hasFocus ? MyColors.mainColor : Colors.grey[400],
+                      color: widget.node!.hasFocus
+                          ? MyColors.mainColor
+                          : Colors.grey[400],
                     ),
                   ),
                 )
               : null,
         ),
+        onFieldSubmitted: widget.onFieldSubmitted,
       ),
     );
   }

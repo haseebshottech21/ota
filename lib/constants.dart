@@ -6,6 +6,12 @@ const logoImage = "assets/images/logo.png";
 const backgroundImage = "assets/images/ota_bg.png";
 const earthCircleImage = "assets/images/earthimg.png";
 
+// ERRORS
+const userInvalidResponse = 100;
+const noInternet = 101;
+const invalidFormat = 102;
+const unknownError = 103;
+
 // TEXT
 // INTRO SCREEN
 const String introTitle = 'Outsource Web Design And Development Services';
