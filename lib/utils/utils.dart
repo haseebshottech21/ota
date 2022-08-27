@@ -24,7 +24,11 @@ class Utils {
   }
 
   // FLUSHBAR
-  static void successFlushBarMessage(String message, BuildContext context) {
+  static void successFlushBarMessage(
+    String message,
+    BuildContext context, {
+    Color color = Colors.green,
+  }) {
     showFlushbar(
       context: context,
       flushbar: Flushbar(
@@ -34,7 +38,7 @@ class Utils {
         padding: const EdgeInsets.all(15),
         borderRadius: BorderRadius.circular(5),
         message: message,
-        backgroundColor: Colors.green,
+        backgroundColor: color,
         // icon: Icon(Icons.error, color: Colors.deepOrange),
         duration: const Duration(seconds: 3),
       )..show(context),
@@ -57,6 +61,45 @@ class Utils {
       )..show(context),
     );
   }
+
+  static void loadingFlushBarMessage(
+    String message,
+    BuildContext context, {
+    Color color = Colors.black,
+  }) {
+    showFlushbar(
+      context: context,
+      flushbar: Flushbar(
+        flushbarPosition: FlushbarPosition.BOTTOM,
+        forwardAnimationCurve: Curves.decelerate,
+        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        padding: const EdgeInsets.all(15),
+        borderRadius: BorderRadius.circular(5),
+        message: message,
+        backgroundColor: color,
+        // icon: Icon(Icons.error, color: Colors.deepOrange),
+        duration: const Duration(seconds: 3),
+      )..show(context),
+    );
+  }
+
+  // static void loadFlushBarMessage(String message, BuildContext context) {
+  //   showFlushbar(
+  //     context: context,
+  //     flushbar: Flushbar(
+  //       flushbarPosition: FlushbarPosition.BOTTOM,
+  //       forwardAnimationCurve: Curves.decelerate,
+  //       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+  //       padding: const EdgeInsets.all(15),
+  //       borderRadius: BorderRadius.circular(5),
+  //       // showProgressIndicator: true,
+  //       backgroundColor: MyColors.mainColor,
+  //       message: message,
+  //       // icon: Icon(Icons.error, color: Colors.deepOrange),
+  //       // duration: const Duration(seconds: 3),
+  //     )..show(context),
+  //   );
+  // }
 
   // SNACKBAR
   static void snackBarMessage(String message, BuildContext context) {

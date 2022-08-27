@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
@@ -5,9 +6,9 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../utils/routes/routes_name.dart';
+import '../../utils/utils.dart';
 import '../../view_model/auth_view_model.dart';
 import '../../widgets/common/buttons.dart';
-import '../../widgets/common/fade_in_widget.dart';
 import '../../widgets/common/textfields.dart';
 import 'component/auth_bottom.dart';
 
@@ -22,8 +23,12 @@ class _SignupScreenState extends State<SignupScreen> {
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
-  final passController = TextEditingController();
-  final confirmPassController = TextEditingController();
+  // final passController = TextEditingController();
+  // final confirmPassController = TextEditingController();
+
+  FocusNode fullNameFocusNode = FocusNode();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode phoneFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -57,37 +62,42 @@ class _SignupScreenState extends State<SignupScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MyFadeIn(
-                durationSecond: 1,
+              FadeIn(
+                duration: const Duration(seconds: 1),
                 child: Column(
                   children: [
                     IconTextfield(
                       hintText: 'Full Name',
-                      icon: Icons.person,
                       controller: fullNameController,
-                    ),
-                    IconTextfield(
-                      hintText: 'Phone',
-                      icon: Icons.phone,
-                      controller: phoneController,
+                      node: fullNameFocusNode,
+                      icon: Icons.person,
+                      onFieldSubmitted: (value) {
+                        Utils.fieldFocusChange(
+                          context,
+                          fullNameFocusNode,
+                          emailFocusNode,
+                        );
+                      },
                     ),
                     IconTextfield(
                       hintText: 'Email address',
-                      icon: Icons.email_outlined,
                       controller: emailController,
+                      node: emailFocusNode,
+                      icon: Icons.email_outlined,
+                      onFieldSubmitted: (value) {
+                        Utils.fieldFocusChange(
+                          context,
+                          emailFocusNode,
+                          phoneFocusNode,
+                        );
+                      },
                     ),
-                    // IconTextfield(
-                    //   hintText: 'Password',
-                    //   icon: Icons.lock_outline,
-                    //   controller: passController,
-                    //   passwordField: true,
-                    // ),
-                    // IconTextfield(
-                    //   hintText: 'Password',
-                    //   icon: Icons.lock_outline,
-                    //   controller: confirmPassController,
-                    //   passwordField: true,
-                    // ),
+                    IconTextfield(
+                      hintText: 'Phone',
+                      controller: phoneController,
+                      node: phoneFocusNode,
+                      icon: Icons.phone,
+                    ),
                     const SizedBox(height: 15),
                     Consumer<AuthViewModel>(
                       builder: (context, authViewModel, _) {

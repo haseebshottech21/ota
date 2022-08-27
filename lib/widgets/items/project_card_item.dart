@@ -1,7 +1,7 @@
 // import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ota/widgets/common/progress_percent.dart';
+// import 'package:ota/widgets/common/progress_percent.dart';
 // import 'package:ota/widgets/common/fade_in_widget.dart';
 // import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -28,7 +28,7 @@ class ProjectCardItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.33,
+          height: MediaQuery.of(context).size.height * 0.30,
           width: double.infinity,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
           child: LayoutBuilder(
@@ -40,7 +40,7 @@ class ProjectCardItem extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      height: constraints.maxHeight * 0.60,
+                      height: constraints.maxHeight,
                       width: double.infinity,
                       padding: const EdgeInsets.only(
                         bottom: 8,
@@ -68,7 +68,7 @@ class ProjectCardItem extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 8),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             child: Row(
@@ -90,66 +90,49 @@ class ProjectCardItem extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.70,
-                                padding: const EdgeInsets.only(left: 2),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'In Progress',
-                                      style: TextStyle(
-                                        color: Colors.grey[600],
-                                        // color: Color(0xFF50182c),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 6),
-                                    const LinearProgressPercent(
-                                        totalpercent: 55),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 12),
-                                child: Container(
-                                  height: 32,
-                                  width: 35,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF3c7cbc),
-                                    borderRadius: BorderRadius.circular(5),
-                                    boxShadow: kElevationToShadow[2],
-                                  ),
-                                  child: const Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Colors.white,
-                                    size: 18,
-                                  ),
-                                ),
-                              ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(top: 12),
-                              //   child: ElevatedButton(
-                              //     onPressed: () {
-                              //       // Navigator.pop(context);
-                              //     },
-                              //     style:
-                              //         theme.elevatedButtonTheme.style!.copyWith(
-                              //       backgroundColor: Color(0xFF3c7cbc),
-                              //     ),
-                              //     child: Icon(
-                              //       Icons.arrow_back_ios_new_sharp,
-                              //       color: theme.iconTheme.color,
-                              //       size: 18,
-                              //     ),
-                              //   ),
-                              // ),
-                            ],
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Container(
+                          //       width: MediaQuery.of(context).size.width * 0.70,
+                          //       padding: const EdgeInsets.only(left: 2),
+                          //       child: Column(
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         children: [
+                          //           Text(
+                          //             'In Progress',
+                          //             style: TextStyle(
+                          //               color: Colors.grey[600],
+                          //               // color: Color(0xFF50182c),
+                          //               fontSize: 12,
+                          //               fontWeight: FontWeight.w400,
+                          //             ),
+                          //           ),
+                          //           const SizedBox(height: 6),
+                          //           const LinearProgressPercent(
+                          //               totalpercent: 55),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //     Padding(
+                          //       padding: const EdgeInsets.only(top: 12),
+                          //       child: Container(
+                          //         height: 32,
+                          //         width: 35,
+                          //         decoration: BoxDecoration(
+                          //           color: Color(0xFF3c7cbc),
+                          //           borderRadius: BorderRadius.circular(5),
+                          //           boxShadow: kElevationToShadow[2],
+                          //         ),
+                          //         child: const Icon(
+                          //           Icons.arrow_forward_ios,
+                          //           color: Colors.white,
+                          //           size: 18,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),
@@ -159,14 +142,11 @@ class ProjectCardItem extends StatelessWidget {
                       topLeft: Radius.circular(5),
                       topRight: Radius.circular(5),
                     ),
-                    child: Hero(
-                      tag: 'heroImage',
-                      child: Image.network(
-                        'https://www.rc.virginia.edu/images/accord/project.png',
-                        fit: BoxFit.cover,
-                        height: constraints.maxHeight * 0.48,
-                        width: double.infinity,
-                      ),
+                    child: Image.network(
+                      'https://www.rc.virginia.edu/images/accord/project.png',
+                      fit: BoxFit.cover,
+                      height: constraints.maxHeight * 0.60,
+                      width: double.infinity,
                     ),
                   ),
                 ],

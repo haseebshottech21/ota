@@ -24,4 +24,14 @@ class AuthRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> logoutApi() async {
+    try {
+      dynamic response =
+          await _apiServices.getGetApiResponse(AppUrl.logoutEndPoint);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

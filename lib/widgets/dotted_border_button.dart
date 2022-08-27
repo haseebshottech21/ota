@@ -69,7 +69,7 @@ class DashRectPainter extends CustomPainter {
     double y = size.height;
 
     Path _topPath = getDashedPath(
-      a: math.Point(0, 0),
+      a: const math.Point(0, 0),
       b: math.Point(x, 0),
       gap: gap,
     );
@@ -87,7 +87,7 @@ class DashRectPainter extends CustomPainter {
     );
 
     Path _leftPath = getDashedPath(
-      a: math.Point(0, 0),
+      a: const math.Point(0, 0),
       b: math.Point(0.001, y),
       gap: gap,
     );

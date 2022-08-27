@@ -7,6 +7,10 @@ import 'package:ota/themes.dart';
 import 'package:ota/utils/icons.dart';
 import 'package:ota/widgets/common/cached_image.dart';
 import 'package:ota/widgets/common/fade_in_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_model/auth_view_model.dart';
+import '../../widgets/common/dialogbox.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -48,6 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // final authViewModel = context.watch<AuthViewModel>();
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -117,12 +123,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         height: 35,
                         width: 35,
                         decoration: BoxDecoration(
-                          color: Color(0xFF3c7cbc).withOpacity(0.3),
+                          color: const Color(0xFF3c7cbc).withOpacity(0.3),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Icon(
                           switchValue ? brightOutline : moonOutline,
-                          color: Color(0xFF3c7cbc),
+                          color: const Color(0xFF3c7cbc),
                           size: 23,
                         ),
                       ),
@@ -160,11 +166,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Future.delayed(const Duration(milliseconds: 400))
-                              .then((value) {
-                            Navigator.of(context)
-                                .pushNamed(profile[index]['navigate']);
-                          });
+                          if (profile[index]['navigate'] == '/logout') {
+                            simpleDialog(
+                              context: context,
+                              title: 'Confirm Logout',
+                              subTitle: 'You are about to logout',
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                // authViewModel.logout(context);
+
+                                context
+                                    .read<AuthViewModel>()
+                                    .logoutApi(context);
+                              },
+                            );
+                          } else {
+                            Future.delayed(const Duration(milliseconds: 400))
+                                .then((value) {
+                              Navigator.of(context)
+                                  .pushNamed(profile[index]['navigate']);
+                            });
+                          }
+
                           // print(profile[index]['navigate']);
                         },
                         child: Padding(
@@ -186,7 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 child: Icon(
                                   profile[index]['icon'],
-                                  color: Color(0xFF3c7cbc),
+                                  color: const Color(0xFF3c7cbc),
                                   size: 23,
                                 ),
                               ),
@@ -195,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 profile[index]['title'],
                                 style: TextStyle(
                                   color: profile[index]['title'] == 'Logout'
-                                      ? Color(0xFF3c7cbc)
+                                      ? const Color(0xFF3c7cbc)
                                       : Theme.of(context)
                                           .textTheme
                                           .bodyText1!

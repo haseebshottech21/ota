@@ -41,10 +41,12 @@ class _IconTextfieldState extends State<IconTextfield> {
 
   @override
   void initState() {
-    // focusNodes.forEach((node) {
     widget.node!.addListener(() {
       setState(() {});
     });
+
+    // focusNodes.forEach((node) {
+
     // });
     super.initState();
   }

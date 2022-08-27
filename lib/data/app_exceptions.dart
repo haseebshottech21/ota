@@ -1,6 +1,6 @@
 class AppException implements Exception {
-  final _message;
-  final _prefix;
+  final dynamic _message;
+  final dynamic _prefix;
 
   AppException([this._message, this._prefix]);
 
@@ -12,7 +12,7 @@ class AppException implements Exception {
 
 class FetchDataException extends AppException {
   FetchDataException([String? message])
-      : super(message, 'Unable to process the request');
+      : super(message, 'Unable to process the request ');
 }
 
 class BadRequestException extends AppException {
@@ -35,5 +35,5 @@ class ApiNotRespondingException extends AppException {
 }
 
 class NotFoundException extends AppException {
-  NotFoundException([String? message]) : super(message, 'Page not found');
+  NotFoundException([String? message]) : super(message, 'Page not found ');
 }

@@ -1,13 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ota/category_provider.dart';
 import 'package:ota/widgets/dotted_border_button.dart';
 // import 'package:ota/widgets/items/categories_item.dart';
-import 'package:provider/provider.dart';
 
 class CreateProject extends StatefulWidget {
   const CreateProject({Key? key}) : super(key: key);
@@ -46,7 +43,7 @@ class _CreateProjectState extends State<CreateProject> {
   ];
 
   void todo(String name) {
-    print(name);
+    // print(name);
     projectCategory.forEach(
       (e) {
         // print(e['title']);
@@ -249,7 +246,7 @@ class _CreateProjectState extends State<CreateProject> {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF3c7cbc),
+                    primary: const Color(0xFF3c7cbc),
                     minimumSize: Size(MediaQuery.of(context).size.width, 40),
                   ),
                   child: const Text('Post'),

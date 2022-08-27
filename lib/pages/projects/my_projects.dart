@@ -41,7 +41,7 @@ class _MyProjectsState extends State<MyProjects> {
     },
   ];
   void todo(String name) {
-    print(name);
+    // print(name);
     category.forEach(
       (e) {
         // print(e['title']);

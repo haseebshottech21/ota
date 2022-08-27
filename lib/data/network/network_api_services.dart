@@ -5,7 +5,7 @@ import '../app_exceptions.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkApiResponse extends BaseApiServices {
-  static const int timeOutDuration = 35;
+  static const int timeOutDuration = 10;
 
   // GET API
   @override
@@ -18,7 +18,7 @@ class NetworkApiResponse extends BaseApiServices {
           await http.get(uri).timeout(const Duration(seconds: timeOutDuration));
       responseJson = returnResponse(response);
     } on SocketException {
-      throw FetchDataException('No Internet Connetion');
+      throw FetchDataException('No Internet Connetion! ');
     }
 
     return responseJson;

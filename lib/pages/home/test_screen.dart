@@ -1,76 +1,85 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ota/model/user_model.dart';
-import 'package:ota/view_model/user_view_model.dart';
+import 'package:ota/data/response/status.dart';
+import 'package:ota/view_model/home_view_model.dart';
 import 'package:provider/provider.dart';
 
-class TestScreen extends StatefulWidget {
-  const TestScreen({Key? key}) : super(key: key);
+class MovieScreen extends StatefulWidget {
+  const MovieScreen({Key? key}) : super(key: key);
 
   @override
-  State<TestScreen> createState() => _TestScreenState();
+  State<MovieScreen> createState() => _MovieScreenState();
 }
 
-class _TestScreenState extends State<TestScreen> {
+class _MovieScreenState extends State<MovieScreen> {
+  // final homeViewModel = Provider.of<HomeViewModel>(context, listen: false);
+
+  // HomeViewModel homeViewModel = HomeViewModel();
+
   @override
   void initState() {
+    getMoviesList();
     super.initState();
-    getUser();
   }
 
-  final user = UsersViewModel();
-
-  getUser() {
-    user.getUsers();
+  getMoviesList() {
+    final provider = Provider.of<HomeViewModel>(context, listen: false);
+    provider.fetchMovieListApi();
   }
 
   @override
   Widget build(BuildContext context) {
-    // UsersViewModel userViewModel = context.watch<UsersViewModel>();
-    final userViewModel = Provider.of<UsersViewModel>(context, listen: false);
+    // final homeViewModel = context.watch<HomeViewModel>();
+    // final homeViewModel = Provider.of<HomeViewModel>(context);
+
+    // print(homeViewModel.movieList.status);
+
     return Scaffold(
-      appBar: AppBar(),
-      body: SizedBox(
-        child: Column(
-          children: [
-            _ui(userViewModel),
-          ],
-        ),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Movies List'),
+      ),
+      body: Consumer<HomeViewModel>(
+        builder: (context, value, _) {
+          switch (value.movieList.status) {
+            case Status.LOADING:
+              return const Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              return Center(
+                child: Text(value.movieList.message.toString()),
+              );
+            case Status.COMPLETE:
+              final movie = value.movieList.data!.movies;
+              return ListView.builder(
+                itemCount: movie!.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text(movie[index].title.toString()),
+                    ),
+                  );
+                },
+              );
+            default:
+              return errorRoute();
+          }
+        },
       ),
     );
   }
 
-  _ui(UsersViewModel userViewModel) {
-    if (userViewModel.loading) {
-      return Center(
-        child: Container(
-          padding: const EdgeInsets.all(20.0),
-          child: const CupertinoActivityIndicator(),
-        ),
-      );
-    }
-    return Expanded(
-      child: ListView.separated(
-        separatorBuilder: ((context, index) => const Divider()),
-        itemCount: userViewModel.userListModel.length,
-        itemBuilder: (context, index) {
-          UserModel userModel = userViewModel.userListModel[index];
-          return SizedBox(
-            child: Column(
-              children: [
-                Text(
-                  userModel.data![index].email,
-                  style: const TextStyle(color: Colors.black),
-                ),
-                Text(
-                  userModel.data![index].firstName,
-                  style: const TextStyle(color: Colors.black),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+  static errorRoute() {
+    return MaterialPageRoute(
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Error'),
+            centerTitle: true,
+          ),
+          body: const Center(
+            child: Text('No route defined'),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:ota/pages/home/test_screen.dart';
+// import 'package:ota/pages/home/test_screen.dart';
 import 'package:ota/pages/profile/profile_screen.dart';
 import 'package:ota/pages/projects/my_projects.dart';
 
@@ -27,13 +28,14 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
       // appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'f1',
         elevation: 4.0,
 
         // label: const Text('Add a task'),
         onPressed: () {
           Navigator.of(context).pushNamed('/create');
         },
-        backgroundColor: Color(0xFF3c7cbc),
+        backgroundColor: const Color(0xFF3c7cbc),
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -97,7 +99,7 @@ class _MyHomeState extends State<MyHome> {
           print('Page Changes to index $int');
         },
         children: const <Widget>[
-          MyProjects(),
+          MovieScreen(),
           MyProjects(),
           MyProjects(),
           ProfileScreen(),

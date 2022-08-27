@@ -13,6 +13,7 @@ import 'package:ota/themes.dart';
 import 'package:ota/utils/routes/routes.dart';
 import 'package:ota/utils/routes/routes_name.dart';
 import 'package:ota/view_model/auth_view_model.dart';
+import 'package:ota/view_model/home_view_model.dart';
 import 'package:ota/view_model/user_view_model.dart';
 import 'package:ota/widgets/common/full_body_textfield.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => UsersViewModel()),
       ],
       child: MaterialApp(

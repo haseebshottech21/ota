@@ -5,6 +5,7 @@ import 'package:ota/utils/utils.dart';
 import '../repo/auth_repository.dart';
 import '../utils/routes/custom_page_router.dart';
 import '../pages/home/home_screen.dart';
+import '../utils/routes/routes_name.dart';
 // import '../utils/routes/routes_name.dart';
 
 class AuthViewModel extends ChangeNotifier {
@@ -69,11 +70,11 @@ class AuthViewModel extends ChangeNotifier {
           //   ),
           // );
 
+          // Utils.successFlushBarMessage(
+          //   value.toString(),
+          //   context,
+          // );
           if (kDebugMode) {
-            Utils.successFlushBarMessage(
-              value.toString(),
-              context,
-            );
             print(value.toString());
 
             clearFields();
@@ -83,6 +84,11 @@ class AuthViewModel extends ChangeNotifier {
                 direction: AxisDirection.left,
               ),
             );
+            Utils.loadingFlushBarMessage(
+              'Logging Successfully!',
+              context,
+              color: Colors.green,
+            );
             // Navigator.of(context).pushNamedAndRemoveUntil(
             //   RouteName.home,
             //   (route) => false,
@@ -91,11 +97,53 @@ class AuthViewModel extends ChangeNotifier {
         },
       );
     }).onError((error, stackTrace) {
-      // setLoad(false);
+      setLoad(false);
+      Utils.errorFlushBarMessage(error.toString(), context);
       if (kDebugMode) {
-        Utils.errorFlushBarMessage(error.toString(), context);
         print(error.toString());
       }
     });
+  }
+
+  Future<void> logoutApi(
+    BuildContext context,
+  ) async {
+    setLoad(true);
+    // _myRepo.logoutApi().then((value) {
+    Utils.loadingFlushBarMessage(
+      'Loggin out...',
+      context,
+    );
+    Future.delayed(const Duration(seconds: 3)).then(
+      (value) {
+        setLoad(false);
+
+        // Utils.successFlushBarMessage(
+        //   value.toString(),
+        //   context,
+        // );
+        Navigator.pushNamed(context, RouteName.login);
+        Utils.loadingFlushBarMessage(
+          'Logged Out.',
+          context,
+        );
+        // if (kDebugMode) {
+        //   print(value.toString());
+        //   Navigator.of(context).push(
+        //     CustomPageRouter(
+        //       child: const MyHome(),
+        //       direction: AxisDirection.left,
+        //     ),
+        //   );
+        // }
+      },
+    );
+    // }).onError((error, stackTrace) {
+    //   setLoad(false);
+    //   Utils.errorFlushBarMessage(error.toString(), context);
+    //   if (kDebugMode) {
+    //     print(error.toString());
+    //   }
+    // });
   }
 }

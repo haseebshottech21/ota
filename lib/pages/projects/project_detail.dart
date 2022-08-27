@@ -31,7 +31,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    // final theme = Theme.of(context);
     return Scaffold(
       // body: Padding(
       //   padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
@@ -133,12 +133,9 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
               // stretchModes: const [
               //   StretchMode.blurBackground,
               // ],
-              background: Hero(
-                tag: 'heroImage1',
-                child: Image.network(
-                  'https://www.rc.virginia.edu/images/accord/project.png',
-                  fit: BoxFit.cover,
-                ),
+              background: Image.network(
+                'https://www.rc.virginia.edu/images/accord/project.png',
+                fit: BoxFit.cover,
               ),
             ),
           ),
