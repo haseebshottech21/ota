@@ -34,6 +34,9 @@ class CustomTheme with ChangeNotifier {
           minimumSize: const Size(32, 32),
         ),
       ),
+      cardTheme: CardTheme(
+        color: Colors.grey.shade100,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.grey.shade100,
@@ -82,6 +85,9 @@ class CustomTheme with ChangeNotifier {
           padding: EdgeInsets.zero,
           minimumSize: const Size(32, 32),
         ),
+      ),
+      cardTheme: CardTheme(
+        color: Colors.grey.shade800,
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,

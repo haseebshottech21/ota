@@ -19,6 +19,7 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   void initState() {
     super.initState();
+
     initialization();
   }
 
@@ -46,12 +47,12 @@ class _IntroScreenState extends State<IntroScreen> {
           Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 60),
+                padding: const EdgeInsets.only(top: 50),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: MyAnimation(
-                      imgHeight: MediaQuery.of(context).size.height * 0.50,
+                      imgHeight: MediaQuery.of(context).size.height * 0.45,
                       imgUrl: constant.earthCircleImage,
                     ),
                   ),
@@ -60,7 +61,7 @@ class _IntroScreenState extends State<IntroScreen> {
               Container(
                 padding: const EdgeInsets.only(
                   top: 70,
-                  bottom: 12,
+                  bottom: 20,
                   right: 16,
                   left: 16,
                 ),

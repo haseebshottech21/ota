@@ -1,6 +1,7 @@
 // import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ota/utils/routes/routes_name.dart';
 // import 'package:ota/widgets/common/progress_percent.dart';
 // import 'package:ota/widgets/common/fade_in_widget.dart';
 // import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -23,7 +24,7 @@ class ProjectCardItem extends StatelessWidget {
     // );
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/project-detail');
+        Navigator.pushNamed(context, RouteName.projectDetail);
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),

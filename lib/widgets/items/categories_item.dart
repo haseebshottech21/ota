@@ -17,12 +17,12 @@ class ProjectCategoriesItem extends StatefulWidget {
 
 class _ProjectCategoriesItemState extends State<ProjectCategoriesItem>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  AnimationController? animationController;
   // late Animation<double> _animation;
 
   @override
   void initState() {
-    _controller = AnimationController(
+    animationController = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
@@ -43,11 +43,11 @@ class _ProjectCategoriesItemState extends State<ProjectCategoriesItem>
             postion: index,
             itemcount: widget.category.length,
             slideDirection: SlideDirection.fromRight,
-            animationController: _controller,
+            animationController: animationController!,
             child: Padding(
               padding: const EdgeInsets.only(left: 0),
               child: Container(
-                margin: const EdgeInsets.only(right: 18),
+                margin: const EdgeInsets.only(right: 16),
                 // color: Colors.yellow,
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment .center,
@@ -104,5 +104,11 @@ class _ProjectCategoriesItemState extends State<ProjectCategoriesItem>
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    animationController!.dispose();
+    super.dispose();
   }
 }

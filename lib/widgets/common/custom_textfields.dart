@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ota/utils/colors.dart';
 import 'package:ota/utils/icons.dart';
 
-class IconTextfield extends StatefulWidget {
+// ignore: must_be_immutable
+class CustomTextField extends StatefulWidget {
   final double? fontSize;
   final IconData icon;
   final String hintText;
@@ -12,7 +13,7 @@ class IconTextfield extends StatefulWidget {
   final bool passwordField;
   bool obscureText;
 
-  IconTextfield({
+  CustomTextField({
     Key? key,
     this.fontSize = 15.0,
     this.obscureText = true,
@@ -25,10 +26,10 @@ class IconTextfield extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<IconTextfield> createState() => _IconTextfieldState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _IconTextfieldState extends State<IconTextfield> {
+class _CustomTextFieldState extends State<CustomTextField> {
   bool passwordVisible = false;
 
   togglePassword() {

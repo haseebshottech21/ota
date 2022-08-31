@@ -1,11 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:ota/pages/home/test_screen.dart';
-// import 'package:ota/pages/home/test_screen.dart';
 import 'package:ota/pages/profile/profile_screen.dart';
 import 'package:ota/pages/projects/my_projects.dart';
-
+import 'package:ota/utils/routes/routes_name.dart';
+import 'package:provider/provider.dart';
 import '../../utils/icons.dart';
+import '../../view_model/bottom_view_model.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);
@@ -16,24 +17,20 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
   PageController myPage = PageController(initialPage: 0);
-  int bottomNavBarCurrentIndex = 0;
-
-  toggleCurrentIndex(int index) {
-    bottomNavBarCurrentIndex = index;
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<BottomViewModel>(context);
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       // appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
         heroTag: 'f1',
         elevation: 4.0,
-
         // label: const Text('Add a task'),
         onPressed: () {
-          Navigator.of(context).pushNamed('/create');
+          Navigator.of(context).pushNamed(RouteName.createProject);
         },
         backgroundColor: const Color(0xFF3c7cbc),
         child: const Icon(Icons.add),
@@ -52,21 +49,20 @@ class _MyHomeState extends State<MyHome> {
             children: <Widget>[
               bottomItem(
                 index: 0,
-                icon: bottomNavBarCurrentIndex == 0
+                icon: provider.currentIndex == 0
                     ? dashboadSolid
                     : dashboadOutline,
                 onPressed: () {
-                  toggleCurrentIndex(0);
+                  provider.toggleCurrentIndex(0);
                   myPage.jumpToPage(0);
                 },
               ),
               bottomItem(
                 index: 1,
-                icon: bottomNavBarCurrentIndex == 1
-                    ? scheduleSolid
-                    : scheduleOuline,
+                icon:
+                    provider.currentIndex == 1 ? scheduleSolid : scheduleOuline,
                 onPressed: () {
-                  toggleCurrentIndex(1);
+                  provider.toggleCurrentIndex(1);
                   myPage.jumpToPage(1);
                 },
               ),
@@ -75,17 +71,16 @@ class _MyHomeState extends State<MyHome> {
                 index: 2,
                 icon: searchOutline,
                 onPressed: () {
-                  toggleCurrentIndex(2);
+                  provider.toggleCurrentIndex(2);
                   myPage.jumpToPage(2);
                 },
               ),
               bottomItem(
                 index: 3,
-                icon: bottomNavBarCurrentIndex == 3
-                    ? profileSolid
-                    : profileOutline,
+                icon:
+                    provider.currentIndex == 3 ? profileSolid : profileOutline,
                 onPressed: () {
-                  toggleCurrentIndex(3);
+                  provider.toggleCurrentIndex(3);
                   myPage.jumpToPage(3);
                 },
               ),
@@ -115,6 +110,7 @@ class _MyHomeState extends State<MyHome> {
     required IconData icon,
     required dynamic onPressed,
   }) {
+    var provider = Provider.of<BottomViewModel>(context);
     return InkWell(
       onTap: () {
         onPressed;
@@ -122,7 +118,7 @@ class _MyHomeState extends State<MyHome> {
       child: Container(
         width: MediaQuery.of(context).size.width * 0.12,
         decoration: BoxDecoration(
-          border: bottomNavBarCurrentIndex == index
+          border: provider.currentIndex == index
               ? const Border(
                   top: BorderSide(
                     width: 3.0,
@@ -133,14 +129,14 @@ class _MyHomeState extends State<MyHome> {
         ),
         child: IconButton(
           icon: FadeInDown(
-            from: bottomNavBarCurrentIndex == index ? 5 : 0,
+            from: provider.currentIndex == index ? 5 : 0,
             duration: const Duration(milliseconds: 300),
             child: Icon(
               icon,
-              color: bottomNavBarCurrentIndex == index
+              color: provider.currentIndex == index
                   ? Theme.of(context).iconTheme.color
                   : Colors.grey,
-              size: bottomNavBarCurrentIndex == index ? 26 : 23,
+              size: provider.currentIndex == index ? 26 : 23,
             ),
           ),
           onPressed: onPressed,

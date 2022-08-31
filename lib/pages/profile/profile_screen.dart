@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-// import 'package:ota/custom_page_router.dart';
-// import 'package:ota/pages/authentication/update_profile.dart';
-// import 'package:ota/pages/profile/notifications.dart';
-// import 'package:google_fonts/google_fonts.dart';
 import 'package:ota/themes.dart';
 import 'package:ota/utils/icons.dart';
+import 'package:ota/utils/routes/routes_name.dart';
 import 'package:ota/widgets/common/cached_image.dart';
 import 'package:ota/widgets/common/fade_in_widget.dart';
 import 'package:provider/provider.dart';
-
 import '../../view_model/auth_view_model.dart';
 import '../../widgets/common/dialogbox.dart';
 
@@ -24,17 +20,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     {
       'title': 'Profile Setting',
       'icon': Icons.person_outline,
-      'navigate': '/update-profile',
+      'navigate': RouteName.updateMyProfile,
     },
     {
       'title': 'Notification',
       'icon': Icons.notifications_none,
-      'navigate': '/notification',
+      'navigate': RouteName.notification,
     },
     {
       'title': 'Password',
       'icon': Icons.lock_outline,
-      'navigate': '/change-password',
+      'navigate': RouteName.updatePassword,
     },
     {
       'title': 'Logout',
@@ -79,8 +75,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     'Bessie Cooper',
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyText1!.color,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                      // color: Color(0xFF50182c),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.0,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 5),
+              Center(
+                child: MyFadeIn(
+                  child: Text(
+                    'CEO COMPANY',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      // color: Color(0xFF50182c),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
                       letterSpacing: 1.0,
                     ),
                   ),
@@ -174,7 +186,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 // authViewModel.logout(context);
-
                                 context
                                     .read<AuthViewModel>()
                                     .logoutApi(context);
@@ -229,11 +240,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                               const Spacer(),
-                              Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                color: Theme.of(context).iconTheme.color,
-                                size: 16,
-                              ),
+                              profile[index]['title'] == 'Logout'
+                                  ? const SizedBox()
+                                  : Icon(
+                                      Icons.arrow_forward_ios_outlined,
+                                      color: Theme.of(context).iconTheme.color,
+                                      size: 16,
+                                    ),
                             ],
                           ),
                         ),

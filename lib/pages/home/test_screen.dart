@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+// import 'package:ota/utils/routes/routes_name.dart';
 import 'package:ota/data/response/status.dart';
+import 'package:ota/view_model/auth_view_model.dart';
 import 'package:ota/view_model/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -15,10 +17,16 @@ class _MovieScreenState extends State<MovieScreen> {
 
   // HomeViewModel homeViewModel = HomeViewModel();
 
+  getData() {
+    final sp = context.read<AuthViewModel>();
+    sp.getDataFromSharedPrefrence();
+  }
+
   @override
   void initState() {
-    getMoviesList();
     super.initState();
+    getMoviesList();
+    // getData();
   }
 
   getMoviesList() {
@@ -28,7 +36,7 @@ class _MovieScreenState extends State<MovieScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final homeViewModel = context.watch<HomeViewModel>();
+    // final sp = context.watch<AuthViewModel>();
     // final homeViewModel = Provider.of<HomeViewModel>(context);
 
     // print(homeViewModel.movieList.status);
@@ -38,6 +46,61 @@ class _MovieScreenState extends State<MovieScreen> {
         automaticallyImplyLeading: false,
         title: const Text('Movies List'),
       ),
+      // body: Column(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     CircleAvatar(
+      //       backgroundColor: Colors.white,
+      //       backgroundImage: NetworkImage('${sp.imageUrl}'),
+      //       radius: 50,
+      //     ),
+      //     const SizedBox(height: 20),
+      //     Text(
+      //       'Welcome ${sp.name}',
+      //       style: const TextStyle(
+      //         fontSize: 15,
+      //         fontWeight: FontWeight.w500,
+      //       ),
+      //     ),
+      //     const SizedBox(height: 10),
+      //     Text(
+      //       'Email ${sp.email}',
+      //       style: const TextStyle(
+      //         fontSize: 15,
+      //         fontWeight: FontWeight.w500,
+      //       ),
+      //     ),
+      //     const SizedBox(height: 10),
+      //     Text(
+      //       'UID ${sp.uid}',
+      //       style: const TextStyle(
+      //         fontSize: 15,
+      //         fontWeight: FontWeight.w500,
+      //       ),
+      //     ),
+      //     const SizedBox(height: 10),
+      //     Row(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       children: [
+      //         const Text('PROVIDER'),
+      //         const SizedBox(width: 5),
+      //         Text(
+      //           '${sp.provider}'.toUpperCase(),
+      //           style: const TextStyle(color: Colors.red),
+      //         )
+      //       ],
+      //     ),
+      //     const SizedBox(height: 10),
+      //     TextButton(
+      //       onPressed: () {
+      //         sp.userSignOut();
+      //         Navigator.pushNamed(context, RouteName.login);
+      //       },
+      //       child: const Text('SIGNOUT'),
+      //     )
+      //   ],
+      // ),
       body: Consumer<HomeViewModel>(
         builder: (context, value, _) {
           switch (value.movieList.status) {

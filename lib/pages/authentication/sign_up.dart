@@ -8,8 +8,8 @@ import '../../constants.dart';
 import '../../utils/routes/routes_name.dart';
 import '../../utils/utils.dart';
 import '../../view_model/auth_view_model.dart';
-import '../../widgets/common/buttons.dart';
-import '../../widgets/common/textfields.dart';
+import '../../widgets/common/custom_buttons.dart';
+import '../../widgets/common/custom_textfields.dart';
 import 'component/auth_bottom.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -66,7 +66,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 duration: const Duration(seconds: 1),
                 child: Column(
                   children: [
-                    IconTextfield(
+                    CustomTextField(
                       hintText: 'Full Name',
                       controller: fullNameController,
                       node: fullNameFocusNode,
@@ -79,7 +79,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         );
                       },
                     ),
-                    IconTextfield(
+                    CustomTextField(
                       hintText: 'Email address',
                       controller: emailController,
                       node: emailFocusNode,
@@ -92,7 +92,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         );
                       },
                     ),
-                    IconTextfield(
+                    CustomTextField(
                       hintText: 'Phone',
                       controller: phoneController,
                       node: phoneFocusNode,
@@ -172,5 +172,18 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    debugPrint('dispose method');
+    fullNameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+
+    fullNameFocusNode.dispose();
+    emailFocusNode.dispose();
+    phoneFocusNode.dispose();
+    super.dispose();
   }
 }

@@ -2,6 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>fb1230205197758704</string>
+					<string>com.googleusercontent.apps.716614033258-70ht335jf4tbic8m1g9foebioeh93ruk</string>
+				</array>
+			</dict>
+		</array>
+		<key>FacebookAppID</key>
+		<string>1230205197758704</string>
+		<key>FacebookClientToken</key>
+		<string>25607f27c12484665e6805489da333e1</string>
+		<key>FacebookDisplayName</key>
+		<string></string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
@@ -45,5 +63,7 @@
 		<false/>
 		<key>UIStatusBarHidden</key>
 		<false/>
-	</dict>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+</dict>
 </plist>

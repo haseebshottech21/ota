@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ota/utils/routes/routes_name.dart';
 import 'package:ota/widgets/dotted_border_button.dart';
 // import 'package:ota/widgets/items/categories_item.dart';
 
@@ -44,18 +45,16 @@ class _CreateProjectState extends State<CreateProject> {
 
   void todo(String name) {
     // print(name);
-    projectCategory.forEach(
-      (e) {
-        // print(e['title']);
-        if (name == e['title']) {
-          // print(category[category.indexOf(e)]);
+    for (var e in projectCategory) {
+      // print(e['title']);
+      if (name == e['title']) {
+        // print(category[category.indexOf(e)]);
 
-          projectCategory[projectCategory.indexOf(e)]['status'] = true;
-        } else if (name != e['title']) {
-          projectCategory[projectCategory.indexOf(e)]['status'] = false;
-        }
-      },
-    );
+        projectCategory[projectCategory.indexOf(e)]['status'] = true;
+      } else if (name != e['title']) {
+        projectCategory[projectCategory.indexOf(e)]['status'] = false;
+      }
+    }
     setState(() {});
   }
 
@@ -77,183 +76,181 @@ class _CreateProjectState extends State<CreateProject> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Create a project',
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1!.color,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Create a project',
+          style: TextStyle(
+            color: Theme.of(context).textTheme.bodyText1!.color,
           ),
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: const Icon(CupertinoIcons.clear, color: Colors.black),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          automaticallyImplyLeading: true,
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8, top: 15),
-              child: Text(
-                'Post a new project',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1!.color,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(CupertinoIcons.clear, color: Colors.black),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        automaticallyImplyLeading: true,
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8, top: 15),
+            child: Text(
+              'Post a new project',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyText1!.color,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            // const SizedBox(height: 10),
-            InkWell(
-              onTap: () {
-                selectCategoryBottom(
-                  context,
-                  projectCategory,
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  top: 12,
-                  bottom: 12,
-                  right: 20,
-                ),
-                child: Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Project category*',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyText1!.color,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        // Consumer<CategoryProvider>(
-                        //   builder: (context, projectCategory, _) {
-                        //     return
-                        Text(
-                          'Add project category',
-                          style: TextStyle(
-                            color: Colors.blue.shade800,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        //   },
-                        // ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Icon(
-                      Icons.add_circle_outline,
-                      color: Colors.blue.shade600,
-                      size: 32,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              height: 0.5,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.black12,
-            ),
-            projectSelectField(
-              context: context,
-              title: 'Project title*',
-              detail: 'Add project title here',
-              fieldHeight: 40,
-              onTap: () {
-                Navigator.of(context).pushNamed('/project-field');
-              },
-            ),
-            Container(
-              height: 0.5,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.black12,
-            ),
-            projectSelectField(
-              context: context,
-              title: 'Project Detail*',
-              detail: 'Add project detail here',
-              fieldHeight: 80,
-              onTap: () {
-                Navigator.of(context).pushNamed('/project-field');
-              },
-            ),
-            Container(
-              height: 0.5,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.black12,
-            ),
-            Padding(
+          ),
+          // const SizedBox(height: 10),
+          InkWell(
+            onTap: () {
+              selectCategoryBottom(
+                context,
+                projectCategory,
+              );
+            },
+            child: Padding(
               padding: const EdgeInsets.only(
-                top: 8,
+                left: 10,
+                top: 12,
                 bottom: 12,
-                left: 12,
-                right: 12,
+                right: 20,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Text(
-                    'Add Image*',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyText1!.color,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Project category*',
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      // Consumer<CategoryProvider>(
+                      //   builder: (context, projectCategory, _) {
+                      //     return
+                      Text(
+                        'Add project category',
+                        style: TextStyle(
+                          color: Colors.blue.shade800,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      //   },
+                      // ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Container(
-                    height: 150,
-                    color: Colors.white,
-                    child: DashedRect(
-                      text: 'ADD YOUR IMAGE',
-                      icons: Icons.add_photo_alternate,
-                      color: Colors.black38,
-                      strokeWidth: 1.5,
-                      gap: 2.5,
-                      onSelectImage: () {
-                        // disputeViewModel.selectImages();
-                        selectImages();
-                      },
-                    ),
+                  const Spacer(),
+                  Icon(
+                    Icons.add_circle_outline,
+                    color: Colors.blue.shade600,
+                    size: 32,
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-        bottomSheet: Container(
-          height: MediaQuery.of(context).size.height * 0.10,
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF3c7cbc),
-                    minimumSize: Size(MediaQuery.of(context).size.width, 40),
-                  ),
-                  child: const Text('Post'),
-                ),
-              ),
-            ],
           ),
+          Container(
+            height: 0.5,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.black12,
+          ),
+          projectSelectField(
+            context: context,
+            title: 'Project title*',
+            detail: 'Add project title here',
+            fieldHeight: 40,
+            onTap: () {
+              Navigator.of(context).pushNamed(RouteName.projectField);
+            },
+          ),
+          Container(
+            height: 0.5,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.black12,
+          ),
+          projectSelectField(
+            context: context,
+            title: 'Project Detail*',
+            detail: 'Add project detail here',
+            fieldHeight: 80,
+            onTap: () {
+              Navigator.of(context).pushNamed(RouteName.projectField);
+            },
+          ),
+          Container(
+            height: 0.5,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.black12,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 8,
+              bottom: 12,
+              left: 12,
+              right: 12,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Add Image*',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  height: 150,
+                  color: Colors.white,
+                  child: DashedRect(
+                    text: 'ADD YOUR IMAGE',
+                    icons: Icons.add_photo_alternate,
+                    color: Colors.black38,
+                    strokeWidth: 1.5,
+                    gap: 2.5,
+                    onSelectImage: () {
+                      // disputeViewModel.selectImages();
+                      selectImages();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomSheet: Container(
+        height: MediaQuery.of(context).size.height * 0.10,
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xFF3c7cbc),
+                  minimumSize: Size(MediaQuery.of(context).size.width, 40),
+                ),
+                child: const Text('Post'),
+              ),
+            ),
+          ],
         ),
       ),
     );
