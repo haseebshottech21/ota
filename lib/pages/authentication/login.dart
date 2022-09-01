@@ -251,7 +251,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         text: "Sign in with Google",
                         onPressed: () {
-                          handleGoogleSignIn();
+                          // handleGoogleSignIn();
                         },
                       ),
                       // const SizedBox(height: 5),
@@ -263,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         // padding: const EdgeInsets.all(4.0),
                         text: "Sign in with Facebook",
                         onPressed: () {
-                          handleFacebookSignIn();
+                          // handleFacebookSignIn();
                         },
                       ),
                     ],

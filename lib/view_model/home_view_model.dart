@@ -6,24 +6,6 @@ import 'package:ota/repo/home_repository.dart';
 class HomeViewModel with ChangeNotifier {
   final _myRepo = HomeRepository();
 
-  var timeNow = DateTime.now().hour;
-  String message = '';
-  greeting() {
-    if (timeNow <= 12) {
-      message = 'Good Morning';
-      notifyListeners();
-    } else if ((timeNow > 12) && (timeNow <= 16)) {
-      message = 'Good AfterNoon';
-      notifyListeners();
-    } else if ((timeNow > 16) && (timeNow <= 20)) {
-      message = 'Good Evening';
-      notifyListeners();
-    } else {
-      message = 'Good Night';
-      notifyListeners();
-    }
-  }
-
   ApiResponse<MovieListModel> movieList = ApiResponse.loading();
 
   setMoviesList(ApiResponse<MovieListModel> response) {

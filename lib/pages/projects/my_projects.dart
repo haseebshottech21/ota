@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ota/view_model/home_view_model.dart';
+// import 'package:ota/view_model/home_view_model.dart';
 import 'package:ota/widgets/common/cached_image.dart';
 import 'package:ota/widgets/common/fade_in_widget.dart';
 import 'package:provider/provider.dart';
@@ -66,12 +66,15 @@ class _MyProjectsState extends State<MyProjects> {
   getData() {
     final sp = context.read<AuthViewModel>();
     sp.getDataFromSharedPrefrence();
+    sp.greeting();
   }
 
   @override
   void initState() {
     super.initState();
-    getData();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getData();
+    });
   }
 
   bool isActive = false;
@@ -80,9 +83,9 @@ class _MyProjectsState extends State<MyProjects> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final auth = context.watch<AuthViewModel>();
-    final home = context.watch<HomeViewModel>();
+    // final home = context.watch<HomeViewModel>();
 
-    print(home.timeNow);
+    // print(home.timeNow);
 
     return Scaffold(
       // backgroundColor: Colors.white,
@@ -112,7 +115,7 @@ class _MyProjectsState extends State<MyProjects> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${home.message} !!',
+                            '${auth.message} !!',
                             style: TextStyle(
                               color: Colors.grey.shade400,
                               // color: Color(0xFF50182c),

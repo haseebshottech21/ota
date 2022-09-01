@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 Widget topbar(BuildContext context, String text) {
   final theme = Theme.of(context);
   return SafeArea(
+    bottom: false,
     child: Padding(
-      padding: const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 6.0),
+      padding: const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

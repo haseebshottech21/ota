@@ -30,6 +30,21 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String message = '';
+  var timeNow = DateTime.now().hour;
+  greeting() {
+    if (timeNow <= 12) {
+      message = 'Good Morning';
+    } else if ((timeNow > 12) && (timeNow <= 16)) {
+      message = 'Good AfterNoon';
+    } else if ((timeNow > 16) && (timeNow <= 20)) {
+      message = 'Good Evening';
+    } else {
+      message = 'Good Night';
+    }
+    notifyListeners();
+  }
+
   // bool _signupLoading = false;
   // bool get signupLoading => _signupLoading;
 

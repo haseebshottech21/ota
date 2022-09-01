@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:ota/pages/home/test_screen.dart';
+// import 'package:ota/pages/home/test_screen.dart';
 import 'package:ota/pages/profile/profile_screen.dart';
 import 'package:ota/pages/projects/my_projects.dart';
 import 'package:ota/utils/routes/routes_name.dart';
@@ -94,7 +94,7 @@ class _MyHomeState extends State<MyHome> {
           print('Page Changes to index $int');
         },
         children: const <Widget>[
-          MovieScreen(),
+          MyProjects(),
           MyProjects(),
           MyProjects(),
           ProfileScreen(),
