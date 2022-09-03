@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -53,21 +52,21 @@ class AuthViewModel extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> login(BuildContext context) async {
-    setLoad(true);
-    Future.delayed(const Duration(milliseconds: 1000)).then(
-      (value) {
-        setLoad(false);
-        Navigator.pushNamed(context, RouteName.home);
-        // Navigator.of(context).push(
-        //   CustomPageRouter(
-        //     child: const MyHome(),
-        //     direction: AxisDirection.left,
-        //   ),
-        // );
-      },
-    );
-  }
+  // Future<void> login(BuildContext context) async {
+  //   setLoad(true);
+  //   Future.delayed(const Duration(milliseconds: 1000)).then(
+  //     (value) {
+  //       setLoad(false);
+  //       Navigator.pushNamed(context, RouteName.home);
+  //       // Navigator.of(context).push(
+  //       //   CustomPageRouter(
+  //       //     child: const MyHome(),
+  //       //     direction: AxisDirection.left,
+  //       //   ),
+  //       // );
+  //     },
+  //   );
+  // }
 
   Future<void> loginApi(
     dynamic data,
@@ -76,26 +75,11 @@ class AuthViewModel extends ChangeNotifier {
   ) async {
     setLoad(true);
     _myRepo.loginApi(data).then((value) {
-      Future.delayed(const Duration(seconds: 3)).then(
+      Future.delayed(const Duration(seconds: 1)).then(
         (value) {
+          // print(value);
           setLoad(false);
-          // Navigator.pushNamed(context, RouteName.home);
-
-          // clearFields();
-          // Navigator.of(context).push(
-          //   CustomPageRouter(
-          //     child: const MyHome(),
-          //     direction: AxisDirection.left,
-          //   ),
-          // );
-
-          // Utils.successFlushBarMessage(
-          //   value.toString(),
-          //   context,
-          // );
           if (kDebugMode) {
-            print(value.toString());
-
             clearFields();
             Navigator.of(context).push(
               CustomPageRouter(
@@ -124,49 +108,76 @@ class AuthViewModel extends ChangeNotifier {
     });
   }
 
+  Future<void> signUpApi(
+    dynamic data,
+    Function clearFields,
+    BuildContext context,
+  ) async {
+    setLoad(true);
+    _myRepo.registerApi(data).then((value) {
+      Future.delayed(const Duration(seconds: 1)).then(
+        (value) {
+          setLoad(false);
+          if (kDebugMode) {
+            print(value.toString());
+            clearFields();
+            // Navigator.of(context).push(
+            //   CustomPageRouter(
+            //     child: const MyHome(),
+            //     direction: AxisDirection.left,
+            //   ),
+            // );
+            Navigator.pushNamed(context, RouteName.login);
+            Utils.loadingFlushBarMessage(
+              'User create Successfully!',
+              context,
+              color: Colors.green,
+            );
+            // Navigator.of(context).pushNamedAndRemoveUntil(
+            //   RouteName.home,
+            //   (route) => false,
+            // );
+          }
+        },
+      );
+    }).onError((error, stackTrace) {
+      setLoad(false);
+      Utils.errorFlushBarMessage(error.toString(), context);
+      if (kDebugMode) {
+        print(error.toString());
+      }
+    });
+  }
+
   Future<void> logoutApi(
     BuildContext context,
   ) async {
     setLoad(true);
-    // _myRepo.logoutApi().then((value) {
-    Utils.loadingFlushBarMessage(
-      'Loggin out...',
-      context,
-    );
-    Future.delayed(const Duration(seconds: 3)).then(
-      (value) {
-        setLoad(false);
-
-        // Utils.successFlushBarMessage(
-        //   value.toString(),
-        //   context,
-        // );
-        userSignOut();
-        Navigator.pushNamed(context, RouteName.login);
-        Utils.loadingFlushBarMessage(
-          'Logged Out.',
-          context,
-        );
-        // if (kDebugMode) {
-        //   print(value.toString());
-        //   Navigator.of(context).push(
-        //     CustomPageRouter(
-        //       child: const MyHome(),
-        //       direction: AxisDirection.left,
-        //     ),
-        //   );
-        // }
-      },
-    );
-    // }).onError((error, stackTrace) {
-    //   setLoad(false);
-    //   Utils.errorFlushBarMessage(error.toString(), context);
-    //   if (kDebugMode) {
-    //     print(error.toString());
-    //   }
-    // });
+    _myRepo.logoutApi().then((value) {
+      Utils.loadingFlushBarMessage(
+        'Loggin out...',
+        context,
+      );
+      Future.delayed(const Duration(seconds: 3)).then(
+        (value) {
+          setLoad(false);
+          Navigator.pushNamed(context, RouteName.login);
+          Utils.loadingFlushBarMessage(
+            'Logged Out.',
+            context,
+          );
+        },
+      );
+    }).onError((error, stackTrace) {
+      setLoad(false);
+      Utils.errorFlushBarMessage(error.toString(), context);
+      if (kDebugMode) {
+        print(error.toString());
+      }
+    });
   }
 
+  // SOCIAL SIGN IN
   bool _singInUser = false;
   bool get singInUser => _singInUser;
 
@@ -396,6 +407,7 @@ class AuthViewModel extends ChangeNotifier {
 
   Future clearStoredData() async {
     final SharedPreferences s = await SharedPreferences.getInstance();
+    s.remove('token');
     s.clear();
   }
 }

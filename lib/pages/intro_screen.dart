@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:ota/pages/service/splash_service.dart';
 import 'package:ota/utils/routes/routes_name.dart';
 import 'package:ota/widgets/common/animation.dart';
 import 'package:ota/widgets/common/backgound.dart';
@@ -16,11 +17,14 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
+  SplashService splashService = SplashService();
+
   @override
   void initState() {
     super.initState();
 
-    initialization();
+    splashService.checkAuthentication(context);
+    // initialization();
   }
 
   void initialization() async {

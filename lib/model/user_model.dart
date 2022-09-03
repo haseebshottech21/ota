@@ -1,107 +1,23 @@
-// To parse this JSON data, do
-//
-//     final userModel = userModelFromJson(jsonString);
-
-import 'dart:convert';
-
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
-
-String userModelToJson(UserModel data) => json.encode(data.toJson());
-
 class UserModel {
-  UserModel(
-    this.page,
-    this.perPage,
-    this.total,
-    this.totalPages,
-    this.data,
-    this.support,
-  );
+  String? token;
+  String? userName;
+  // User? user;
 
-  int page;
-  int perPage;
-  int total;
-  int totalPages;
-  List<Datum>? data;
-  Support? support;
+  UserModel({this.token, this.userName});
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      json["page"],
-      json["per_page"],
-      json["total"],
-      json["total_pages"],
-      json["data"] == null
-          ? null
-          : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      json["support"] == null ? null : Support.fromJson(json["support"]),
-    );
+  UserModel.fromJson(Map<String, dynamic> json) {
+    token = json['token'];
+    token = json['user']['name'];
+    // user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
-  Map<String, dynamic> toJson() => {
-        "page": page,
-        "per_page": perPage,
-        "total": total,
-        "total_pages": totalPages,
-        "data": data == null
-            ? null
-            : List<dynamic>.from(data!.map((x) => x.toJson())),
-        "support": support == null ? null : support!.toJson(),
-      };
-}
-
-class Datum {
-  Datum(
-    this.id,
-    this.email,
-    this.firstName,
-    this.lastName,
-    this.avatar,
-  );
-
-  int id;
-  String email;
-  String firstName;
-  String lastName;
-  String avatar;
-
-  factory Datum.fromJson(Map<String, dynamic> json) {
-    return Datum(
-      json["id"],
-      json["email"],
-      json["first_name"],
-      json["last_name"],
-      json["avatar"],
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['token'] = token;
+    data['user']['name'] = userName;
+    // if (this.user != null) {
+    //   data['user'] = this.user!.toJson();
+    // }
+    return data;
   }
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "email": email,
-        "first_name": firstName,
-        "last_name": lastName,
-        "avatar": avatar,
-      };
-}
-
-class Support {
-  Support(
-    this.url,
-    this.text,
-  );
-
-  String url;
-  String text;
-
-  factory Support.fromJson(Map<String, dynamic> json) {
-    return Support(
-      json["url"],
-      json["text"],
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        "url": url,
-        "text": text,
-      };
 }

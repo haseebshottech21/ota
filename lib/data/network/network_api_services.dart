@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:ota/data/network/base_api_services.dart';
+import 'package:ota/utils/app_url.dart';
 import '../app_exceptions.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,8 +15,12 @@ class NetworkApiResponse extends BaseApiServices {
     dynamic responseJson;
 
     try {
-      final response =
-          await http.get(uri).timeout(const Duration(seconds: timeOutDuration));
+      final response = await http
+          .get(
+            uri,
+            headers: AppUrl.header,
+          )
+          .timeout(const Duration(seconds: timeOutDuration));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connetion! ');
@@ -32,11 +37,32 @@ class NetworkApiResponse extends BaseApiServices {
 
     try {
       http.Response response = await http
-          .post(uri, body: data)
+          .post(uri, body: data, headers: AppUrl.header)
           .timeout(const Duration(seconds: timeOutDuration));
       responseJson = returnResponse(response);
     } on SocketException {
-      throw FetchDataException('No Internet Connetion');
+      throw FetchDataException('No Internet Connetion ');
+    }
+
+    return responseJson;
+  }
+
+  // LOGOUT API
+  @override
+  Future getLogoutApiResponse(String url) async {
+    var uri = Uri.parse(url);
+    dynamic responseJson;
+
+    try {
+      final response = await http
+          .get(
+            uri,
+            headers: await AppUrl().headerWithAuth(),
+          )
+          .timeout(const Duration(seconds: timeOutDuration));
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connetion! ');
     }
 
     return responseJson;

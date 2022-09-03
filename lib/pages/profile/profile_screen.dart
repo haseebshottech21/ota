@@ -40,11 +40,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ];
 
   bool switchValue = false;
-  // ThemeProvider themeProvider = ThemeProvider();
-
-  // void getCurrentTheme() async {
-  //   themeProvider.darkTheme = await themeProvider.prefrence.getTheme();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -164,11 +159,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              //   },
-              // ),
-              // const SizedBox(height: 6),
-              // const Divider(),
-              // const SizedBox(height: 6),
               ListView.builder(
                 itemCount: profile.length,
                 shrinkWrap: true,
@@ -198,8 +188,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   .pushNamed(profile[index]['navigate']);
                             });
                           }
-
-                          // print(profile[index]['navigate']);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(

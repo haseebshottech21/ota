@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ota/utils/colors.dart';
 import 'package:ota/utils/icons.dart';
 
@@ -11,6 +12,7 @@ class CustomTextField extends StatefulWidget {
   final FocusNode? node;
   void Function(String)? onFieldSubmitted;
   final bool passwordField;
+  List<TextInputFormatter>? inputFormatters;
   bool obscureText;
 
   CustomTextField({
@@ -20,6 +22,7 @@ class CustomTextField extends StatefulWidget {
     this.passwordField = false,
     this.onFieldSubmitted,
     this.node,
+    this.inputFormatters,
     required this.icon,
     required this.hintText,
     required this.controller,
@@ -64,6 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         cursorColor: MyColors.mainColor,
         // cursorWidth: 1.5,
         controller: widget.controller,
+        inputFormatters: widget.inputFormatters,
         decoration: InputDecoration(
           filled: true,
           fillColor: theme.inputDecorationTheme.fillColor,

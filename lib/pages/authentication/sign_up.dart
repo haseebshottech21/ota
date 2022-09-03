@@ -13,7 +13,6 @@ import '../../constants.dart';
 import '../../utils/routes/routes_name.dart';
 import '../../utils/utils.dart';
 import '../../view_model/auth_view_model.dart';
-// import '../../widgets/common/cached_image.dart';
 import '../../widgets/common/custom_buttons.dart';
 import '../../widgets/common/custom_textfields.dart';
 import 'component/auth_bottom.dart';
@@ -36,6 +35,46 @@ class _SignupScreenState extends State<SignupScreen> {
   FocusNode fullNameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode phoneFocusNode = FocusNode();
+
+  bool buttonEnable = false;
+
+  @override
+  void initState() {
+    super.initState();
+    enableButton();
+  }
+
+  clear() {
+    fullNameController.clear();
+    emailController.clear();
+    phoneController.clear();
+  }
+
+  enableButton() {
+    fullNameController.addListener(() {
+      if (emailController.text.isNotEmpty && phoneController.text.isNotEmpty) {
+        setState(() {
+          buttonEnable = fullNameController.text.isNotEmpty;
+        });
+      }
+    });
+    emailController.addListener(() {
+      if (phoneController.text.isNotEmpty &&
+          fullNameController.text.isNotEmpty) {
+        setState(() {
+          buttonEnable = emailController.text.isNotEmpty;
+        });
+      }
+    });
+    phoneController.addListener(() {
+      if (emailController.text.isNotEmpty &&
+          fullNameController.text.isNotEmpty) {
+        setState(() {
+          buttonEnable = phoneController.text.isNotEmpty;
+        });
+      }
+    });
+  }
 
   File? _image;
 
@@ -189,12 +228,17 @@ class _SignupScreenState extends State<SignupScreen> {
                     controller: phoneController,
                     node: phoneFocusNode,
                     icon: Icons.phone,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(11),
+                    ],
                   ),
                   const SizedBox(height: 15),
                   Consumer<AuthViewModel>(
                     builder: (context, authViewModel, _) {
                       // print(authViewModel.loading);
                       return ButtonGradient(
+                        buttonEable: buttonEnable,
                         disbleBtnText: 'Sign Up',
                         widget: authViewModel.loading
                             ? const CupertinoActivityIndicator(
@@ -207,7 +251,47 @@ class _SignupScreenState extends State<SignupScreen> {
                         onPressed: authViewModel.loading
                             ? null
                             : () {
-                                // authViewModel.login(context);
+                                if (fullNameController.text.isEmpty) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter full name',
+                                    context,
+                                  );
+                                } else if (emailController.text.isEmpty) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter email',
+                                    context,
+                                  );
+                                } else if (!RegExp(
+                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(emailController.text)) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter valid email address',
+                                    context,
+                                  );
+                                } else if (phoneController.text.isEmpty) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter phone number ',
+                                    context,
+                                  );
+                                } else if (phoneController.text.length < 10) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter 10 digit phone number ',
+                                    context,
+                                  );
+                                } else {
+                                  print('API hit success');
+                                  Map data = {
+                                    "name": fullNameController.text,
+                                    "email": emailController.text,
+                                    "phone": phoneController.text,
+                                    "role_id": '4',
+                                  };
+                                  authViewModel.signUpApi(
+                                    data,
+                                    clear,
+                                    context,
+                                  );
+                                }
                               },
                       );
                     },
