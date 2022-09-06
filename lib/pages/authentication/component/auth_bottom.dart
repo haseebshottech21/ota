@@ -16,7 +16,7 @@ class AuthBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 25.0),
         decoration: const BoxDecoration(
           color: MyColors.whiteColor,
           // border: Border(

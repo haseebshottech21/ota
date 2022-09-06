@@ -5,6 +5,9 @@ IconData dashboadSolid = CupertinoIcons.square_grid_2x2_fill;
 
 IconData searchOutline = CupertinoIcons.search;
 
+IconData chatOutline = CupertinoIcons.tray;
+IconData chatSolid = CupertinoIcons.tray_fill;
+
 IconData profileOutline = CupertinoIcons.person;
 IconData profileSolid = CupertinoIcons.person_fill;
 

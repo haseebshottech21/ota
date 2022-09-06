@@ -65,8 +65,8 @@ class _MyAppState extends State<MyApp> {
         darkTheme: CustomTheme.darkTheme,
         themeMode: currentTheme.currentTheme,
         home: const MyHome(),
-        initialRoute: RouteName.intro,
-        onGenerateRoute: RouteGenerator.onGeneratingRoute,
+        // initialRoute: RouteName.intro,
+        // onGenerateRoute: RouteGenerator.onGeneratingRoute,
       ),
     );
   }

@@ -64,8 +64,9 @@ class _ProjectCategoriesItemState extends State<ProjectCategoriesItem>
                           vertical: 12,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.grey[50],
+                          borderRadius: BorderRadius.circular(4),
+                          boxShadow: kElevationToShadow[1],
                           gradient: widget.category[index]['status'] == true
                               ? const LinearGradient(
                                   begin: Alignment.topLeft,
@@ -83,10 +84,11 @@ class _ProjectCategoriesItemState extends State<ProjectCategoriesItem>
                           color: widget.category[index]['status'] == true
                               ? Colors.white
                               : Colors.black87,
+                          size: 26,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     Text(
                       widget.category[index]['title'],
                       style: TextStyle(

@@ -5,18 +5,12 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:ota/constants.dart';
 import 'package:ota/pages/authentication/component/auth_bottom.dart';
-// import 'package:ota/pages/home/home_screen.dart';
-// import 'package:ota/pages/home/test_screen.dart';
 import 'package:ota/utils/utils.dart';
-// import 'package:ota/utils/colors.dart';
 import 'package:ota/view_model/auth_view_model.dart';
 import 'package:ota/view_model/connection_view_model.dart';
-import 'package:ota/widgets/common/custom_buttons.dart';
-import 'package:ota/widgets/common/custom_textfields.dart';
-import 'package:ota/widgets/common/fade_in_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:ota/constants.dart' as constant;
-
+import '../../widgets/widgets.dart';
 import '../../utils/routes/custom_page_router.dart';
 import '../../utils/routes/routes_name.dart';
 import '../home/home_screen.dart';
@@ -96,24 +90,33 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           color: Colors.black,
                           // color: Color(0xFF50182c),
-                          fontSize: 30,
+                          fontSize: 28,
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Serif',
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.70,
-                        height: MediaQuery.of(context).size.height * 0.09,
-                        decoration: const BoxDecoration(
-                          // color: Colors.yellow,
-                          // borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: AssetImage(constant.logoImage),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.55,
+                        child: Image.asset(constant.logoImage),
                       ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width * 0.60,
+                      //   // height: MediaQuery.of(context).size.height * 0.09,
+                      //   padding: const EdgeInsets.symmetric(horizontal: 5),
+                      //   alignment: Alignment.centerLeft,
+                      //   color: Colors.yellow,
+
+                      //   // decoration: const BoxDecoration(
+                      //   // color: Colors.yellow,
+                      //   // borderRadius: BorderRadius.circular(10),
+                      //   // image: DecorationImage(
+                      //   //   image: AssetImage(constant.logoImage),
+                      //   //   fit: BoxFit.cover,
+                      //   // ),
+                      //   // ),
+                      //   child: Image.asset(constant.logoImage),
+                      // ),
                     ],
                   ),
                 ),

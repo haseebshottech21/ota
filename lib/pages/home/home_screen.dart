@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 // import 'package:ota/pages/home/test_screen.dart';
 import 'package:ota/pages/profile/profile_screen.dart';
 import 'package:ota/pages/projects/my_projects.dart';
@@ -7,6 +8,7 @@ import 'package:ota/utils/routes/routes_name.dart';
 import 'package:provider/provider.dart';
 import '../../utils/icons.dart';
 import '../../view_model/bottom_view_model.dart';
+import '../chats/my_chats.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);
@@ -16,6 +18,27 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  @override
+  void initState() {
+    initialization();
+    super.initState();
+  }
+
+  void initialization() async {
+    // This is where you can initialize the resources needed by your app while
+    // the splash screen is displayed.  Remove the following example because
+    // delaying the user experience is a bad design practice!
+    // ignore_for_file: avoid_print
+    print('ready in 3...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 2...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 1...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('go!');
+    FlutterNativeSplash.remove();
+  }
+
   PageController myPage = PageController(initialPage: 0);
 
   @override
@@ -25,15 +48,37 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       // appBar: AppBar(),
+      // floatingActionButton: FloatingActionButton(
+      //   heroTag: 'f1',
+      //   elevation: 4.0,
+      //   // label: const Text('Add a task'),
+      //   onPressed: () {
+      //     Navigator.of(context).pushNamed(RouteName.createProject);
+      //   },
+      //   backgroundColor: const Color(0xFF3c7cbc),
+      //   child: const Icon(Icons.add),
+      // ),
       floatingActionButton: FloatingActionButton(
-        heroTag: 'f1',
-        elevation: 4.0,
-        // label: const Text('Add a task'),
+        child: Container(
+          width: 60,
+          height: 60,
+          child: const Icon(
+            Icons.add,
+            size: 40,
+          ),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF08a7dc),
+                Color(0xFF1393d0),
+              ],
+            ),
+          ),
+        ),
         onPressed: () {
           Navigator.of(context).pushNamed(RouteName.createProject);
         },
-        backgroundColor: const Color(0xFF3c7cbc),
-        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -69,7 +114,7 @@ class _MyHomeState extends State<MyHome> {
               const SizedBox(width: 20),
               bottomItem(
                 index: 2,
-                icon: searchOutline,
+                icon: provider.currentIndex == 2 ? chatSolid : chatOutline,
                 onPressed: () {
                   provider.toggleCurrentIndex(2);
                   myPage.jumpToPage(2);
@@ -96,7 +141,7 @@ class _MyHomeState extends State<MyHome> {
         children: const <Widget>[
           MyProjects(),
           MyProjects(),
-          MyProjects(),
+          Chats(),
           ProfileScreen(),
         ],
         physics:

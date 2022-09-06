@@ -75,8 +75,8 @@ class _IntroScreenState extends State<IntroScreen> {
                   children: [
                     FadeInDown(
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 0.90,
-                        height: MediaQuery.of(context).size.height * 0.12,
+                        width: MediaQuery.of(context).size.width * 0.70,
+                        height: MediaQuery.of(context).size.height * 0.10,
                         decoration: BoxDecoration(
                           // color: Colors.yellow,
                           borderRadius: BorderRadius.circular(10),
@@ -120,8 +120,9 @@ class _IntroScreenState extends State<IntroScreen> {
                           child: SlideAction(
                             // elevation: 5,
                             sliderRotate: false,
-                            outerColor: const Color(0xFFa45ca4),
-                            innerColor: const Color(0xFF834a83),
+                            outerColor: Colors.white.withOpacity(0.1),
+                            // innerColor: Colors.white,
+                            innerColor: const Color(0xFF964473),
                             // Pink Shade
                             // outerColor: const Color(0xFFbc5590),
                             // innerColor: const Color(0xFF964473),
@@ -139,8 +140,11 @@ class _IntroScreenState extends State<IntroScreen> {
                                   TextStyle(color: Colors.white, fontSize: 17),
                             )),
                             key: _key,
-                            sliderButtonIcon: const Icon(Icons.arrow_forward,
-                                color: Colors.white),
+                            sliderButtonIcon: const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                            ),
+
                             onSubmit: () {
                               Future.delayed(
                                 const Duration(seconds: 1),

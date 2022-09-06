@@ -13,8 +13,7 @@ import '../../constants.dart';
 import '../../utils/routes/routes_name.dart';
 import '../../utils/utils.dart';
 import '../../view_model/auth_view_model.dart';
-import '../../widgets/common/custom_buttons.dart';
-import '../../widgets/common/custom_textfields.dart';
+import '../../widgets/widgets.dart';
 import 'component/auth_bottom.dart';
 import 'component/select_profile.dart';
 

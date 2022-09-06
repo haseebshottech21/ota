@@ -29,9 +29,11 @@ class ProjectCardItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.30,
+          height: MediaQuery.of(context).size.height * 0.32,
           width: double.infinity,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+          ),
           child: LayoutBuilder(
             builder: (context, constraints) {
               // double percent = 80.0;
@@ -61,15 +63,61 @@ class ProjectCardItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
-                            'MOBILE APP BIZHUB',
-                            style: GoogleFonts.openSans(
-                              color: const Color(0xFF3c7cbc),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'MOBILE APP BIZHUB',
+                                      style: GoogleFonts.openSans(
+                                        color: const Color(0xFF3c7cbc),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Project detail...',
+                                      style: GoogleFonts.openSans(
+                                        // color: Colors.black87,
+                                        color: Colors.grey[800],
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: const BoxDecoration(
+                                    // color: Colors.grey.withOpacity(0.6),
+                                    // borderRadius: BorderRadius.circular(50),
+                                    shape: BoxShape.circle,
+                                    gradient: LinearGradient(
+                                      // begin: Alignment.centerLeft,
+                                      // end: Alignment.centerRight,
+                                      // stops: [0.1, 0.9],
+                                      colors: [
+                                        Color(0xFF08a7dc),
+                                        Color(0xFF1393d0),
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Icon(
+                                    Icons.desktop_mac_outlined,
+                                    size: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 16),
+                          // Spacer(),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             child: Row(
@@ -90,7 +138,7 @@ class ProjectCardItem extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 4),
                           // Row(
                           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           //   children: [
@@ -144,9 +192,9 @@ class ProjectCardItem extends StatelessWidget {
                       topRight: Radius.circular(5),
                     ),
                     child: Image.network(
-                      'https://www.rc.virginia.edu/images/accord/project.png',
+                      'https://images.unsplash.com/photo-1572177812156-58036aae439c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvamVjdHxlbnwwfHwwfHw%3D&w=1000&q=80',
                       fit: BoxFit.cover,
-                      height: constraints.maxHeight * 0.60,
+                      height: constraints.maxHeight * 0.50,
                       width: double.infinity,
                     ),
                   ),

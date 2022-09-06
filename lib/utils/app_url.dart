@@ -4,6 +4,7 @@ class AppUrl {
   final prefrences = Prefrences();
   // static var baseUrl = 'https://reqres.in';
   static var baseUrl = 'http://10.0.0.39:125';
+  static const imageBaseUrl = 'https://bizhub.ai/storage/app/public/';
   static var movieBaseUrl =
       'https://dea91516-1da3-444b-ad94-c6d0c4dfab81.mock.pstmn.io';
 
@@ -11,6 +12,7 @@ class AppUrl {
   static var loginEndPoint = baseUrl + '/api/login';
   static var registerEndPoint = baseUrl + '/api/register';
   static var moviesListEndPoint = movieBaseUrl + '/movies_list';
+  static var projectsEndPoint = baseUrl + '/projects';
   static var logoutEndPoint = baseUrl + '/api/logout';
 
   static const Map<String, String> header = {

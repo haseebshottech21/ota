@@ -134,8 +134,8 @@ class _MyProjectsState extends State<MyProjects> {
                     ],
                   ),
                   const SizedBox(height: 30),
-                  subTitles(subTitile: 'Categories'),
-                  const SizedBox(height: 15),
+                  subTitles(subTitile: 'All Categories'),
+                  const SizedBox(height: 20),
                   ProjectCategoriesItem(
                     category: category,
                     onPressed: todo,
