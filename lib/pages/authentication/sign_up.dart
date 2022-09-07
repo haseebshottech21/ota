@@ -88,7 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
         Navigator.of(context).pop();
       });
     } on PlatformException catch (e) {
-      print(e);
+      // print(e);
       Navigator.of(context).pop();
     }
   }
@@ -278,7 +278,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     context,
                                   );
                                 } else {
-                                  print('API hit success');
+                                  // print('API hit success');
                                   Map data = {
                                     "name": fullNameController.text,
                                     "email": emailController.text,

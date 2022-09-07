@@ -26,6 +26,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
   FocusNode emailFocusNode = FocusNode();
   FocusNode phoneFocusNode = FocusNode();
 
+  bool buttonEnable = true;
+
+  clear() {
+    fullNameController.clear();
+    emailController.clear();
+    phoneController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,10 +128,32 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     icon: Icons.phone,
                   ),
                   const SizedBox(height: 15),
+                  // Consumer<AuthViewModel>(
+                  //   builder: (context, authViewModel, _) {
+                  //     // print(authViewModel.loading);
+                  //     return ButtonGradient(
+                  //       disbleBtnText: 'Update',
+                  //       widget: authViewModel.loading
+                  //           ? const CupertinoActivityIndicator(
+                  //               color: Colors.white,
+                  //             )
+                  //           : Text(
+                  //               'Update',
+                  //               style: Constant.formButtonStyle,
+                  //             ),
+                  //       onPressed: authViewModel.loading
+                  //           ? null
+                  //           : () {
+                  //               // authViewModel.login(context);
+                  //             },
+                  //     );
+                  //   },
+                  // ),
                   Consumer<AuthViewModel>(
                     builder: (context, authViewModel, _) {
                       // print(authViewModel.loading);
                       return ButtonGradient(
+                        buttonEable: buttonEnable,
                         disbleBtnText: 'Update',
                         widget: authViewModel.loading
                             ? const CupertinoActivityIndicator(
@@ -136,7 +166,38 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         onPressed: authViewModel.loading
                             ? null
                             : () {
-                                // authViewModel.login(context);
+                                if (fullNameController.text.isEmpty) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter full name',
+                                    context,
+                                  );
+                                } else if (emailController.text.isEmpty) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter email',
+                                    context,
+                                  );
+                                } else if (phoneController.text.isEmpty) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter phone number ',
+                                    context,
+                                  );
+                                } else if (phoneController.text.length < 10) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter 10 digit phone number ',
+                                    context,
+                                  );
+                                } else {
+                                  // print('API hit success');
+                                  Map data = {
+                                    "name": fullNameController.text,
+                                    "phone": phoneController.text,
+                                  };
+                                  authViewModel.updateProfileApi(
+                                    data,
+                                    clear,
+                                    context,
+                                  );
+                                }
                               },
                       );
                     },

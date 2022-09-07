@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:ota/view_model/home_view_model.dart';
+import 'package:ota/view_model/categories_view_model.dart';
+import 'package:ota/view_model/project_view_model.dart';
 import 'package:ota/widgets/common/cached_image.dart';
 import 'package:ota/widgets/common/fade_in_widget.dart';
 import 'package:provider/provider.dart';
+import '../../data/response/status.dart';
 import '../../view_model/auth_view_model.dart';
 import '../../widgets/items/categories_item.dart';
 import '../../widgets/items/project_card_item.dart';
@@ -16,47 +18,47 @@ class MyProjects extends StatefulWidget {
 }
 
 class _MyProjectsState extends State<MyProjects> {
-  final List category = [
-    {
-      'title': 'DEVELOPMENT',
-      'status': true,
-      'icon': Icons.desktop_mac_outlined,
-    },
-    {
-      'title': 'DESIGN',
-      'status': false,
-      'icon': Icons.design_services,
-    },
-    {
-      'title': 'WORDPRESS',
-      'status': false,
-      'icon': Icons.wordpress,
-    },
-    {
-      'title': 'MOBILE APP',
-      'status': false,
-      'icon': Icons.mobile_friendly_rounded,
-    },
-    {
-      'title': 'VIDEO EDITING',
-      'status': false,
-      'icon': Icons.video_camera_back_outlined,
-    },
-  ];
-  void todo(String name) {
-    // print(name);
-    for (var e in category) {
-      // print(e['title']);
-      if (name == e['title']) {
-        // print(category[category.indexOf(e)]);
+  // final List category = [
+  //   {
+  //     'title': 'DEVELOPMENT',
+  //     'status': true,
+  //     'icon': Icons.desktop_mac_outlined,
+  //   },
+  //   {
+  //     'title': 'DESIGN',
+  //     'status': false,
+  //     'icon': Icons.design_services,
+  //   },
+  //   {
+  //     'title': 'WORDPRESS',
+  //     'status': false,
+  //     'icon': Icons.wordpress,
+  //   },
+  //   {
+  //     'title': 'MOBILE APP',
+  //     'status': false,
+  //     'icon': Icons.mobile_friendly_rounded,
+  //   },
+  //   {
+  //     'title': 'VIDEO EDITING',
+  //     'status': false,
+  //     'icon': Icons.video_camera_back_outlined,
+  //   },
+  // ];
+  // void todo(String name) {
+  //   // print(name);
+  //   for (var e in category) {
+  //     // print(e['title']);
+  //     if (name == e['title']) {
+  //       // print(category[category.indexOf(e)]);
 
-        category[category.indexOf(e)]['status'] = true;
-      } else if (name != e['title']) {
-        category[category.indexOf(e)]['status'] = false;
-      }
-    }
-    setState(() {});
-  }
+  //       category[category.indexOf(e)]['status'] = true;
+  //     } else if (name != e['title']) {
+  //       category[category.indexOf(e)]['status'] = false;
+  //     }
+  //   }
+  //   setState(() {});
+  // }
 
   // toggleCategory(int index) {
   //   category[index] = index;
@@ -64,9 +66,17 @@ class _MyProjectsState extends State<MyProjects> {
   // }
 
   getData() {
-    final sp = context.read<AuthViewModel>();
-    sp.getDataFromSharedPrefrence();
-    sp.greeting();
+    final auth = context.read<AuthViewModel>();
+    // sp.getDataFromSharedPrefrence();
+    auth.setPrefrenceValues();
+    auth.greeting();
+  }
+
+  getAllData() {
+    final provider = Provider.of<ProjectViewModel>(context, listen: false);
+    final categories = Provider.of<CategoriesViewModel>(context, listen: false);
+    provider.fetchProjectsListApi();
+    categories.fetchCategoriesListApi();
   }
 
   @override
@@ -74,6 +84,7 @@ class _MyProjectsState extends State<MyProjects> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       getData();
+      getAllData();
     });
   }
 
@@ -86,6 +97,8 @@ class _MyProjectsState extends State<MyProjects> {
     // final home = context.watch<HomeViewModel>();
 
     // print(home.timeNow);
+
+    // print('name ' + auth.prefrence["name"].toString());
 
     return Scaffold(
       // backgroundColor: Colors.white,
@@ -105,11 +118,11 @@ class _MyProjectsState extends State<MyProjects> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Hey ${auth.name}',
+                            'Hey ${auth.getPrefrenceValue("name")}',
                             style: TextStyle(
                               color: theme.textTheme.headline1!.color,
                               // color: Color(0xFF50182c),
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -136,10 +149,34 @@ class _MyProjectsState extends State<MyProjects> {
                   const SizedBox(height: 30),
                   subTitles(subTitile: 'All Categories'),
                   const SizedBox(height: 20),
-                  ProjectCategoriesItem(
-                    category: category,
-                    onPressed: todo,
-                  ),
+                  const ProjectCategoriesItem(),
+                  // Consumer<CategoriesViewModel>(
+                  //   builder: (context, viewModel, _) {
+                  //     // print(value.projectList.status);
+                  //     switch (viewModel.categoryList.status) {
+                  //       case Status.LOADING:
+                  //         return const Center(
+                  //           child: CircularProgressIndicator(),
+                  //         );
+                  //       case Status.ERROR:
+                  //         return Center(
+                  //           child:
+                  //               Text(viewModel.categoryList.message.toString()),
+                  //         );
+                  //       case Status.COMPLETE:
+                  //         final category =
+                  //             viewModel.categoryList.data!.category;
+                  //         return Row(
+                  //           children: List.generate(
+                  //             category.length,
+                  //             (index) => const Text('data'),
+                  //           ),
+                  //         );
+                  //       default:
+                  //     }
+                  //     return Container();
+                  //   },
+                  // ),
 
                   // SingleChildScrollView(
                   //   scrollDirection: Axis.horizontal,
@@ -269,12 +306,39 @@ class _MyProjectsState extends State<MyProjects> {
                   subTitles(subTitile: 'My Projects'),
                   const SizedBox(height: 15),
                   // const ProjectCardItem(),
-                  ListView.builder(
-                    itemCount: 3,
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return const ProjectCardItem();
+                  // ListView.builder(
+                  //   itemCount: 3,
+                  //   shrinkWrap: true,
+                  //   physics: const ClampingScrollPhysics(),
+                  //   itemBuilder: (context, index) {
+                  //     return const ProjectCardItem();
+                  //   },
+                  // ),
+                  Consumer<ProjectViewModel>(
+                    builder: (context, value, _) {
+                      // print(value.projectList.status);
+                      switch (value.projectList.status) {
+                        case Status.LOADING:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case Status.ERROR:
+                          return Center(
+                            child: Text(value.projectList.message.toString()),
+                          );
+                        case Status.COMPLETE:
+                          final project = value.projectList.data!.project;
+                          return ListView.builder(
+                            itemCount: project.length,
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return ProjectCardItem(project: project[index]);
+                            },
+                          );
+                        default:
+                          return errorRoute();
+                      }
                     },
                   ),
                 ],
@@ -283,6 +347,22 @@ class _MyProjectsState extends State<MyProjects> {
           ),
         ),
       ),
+    );
+  }
+
+  static errorRoute() {
+    return MaterialPageRoute(
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Error'),
+            centerTitle: true,
+          ),
+          body: const Center(
+            child: Text('No route defined'),
+          ),
+        );
+      },
     );
   }
 

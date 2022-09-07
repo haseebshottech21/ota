@@ -9,10 +9,16 @@ class AppUrl {
       'https://dea91516-1da3-444b-ad94-c6d0c4dfab81.mock.pstmn.io';
 
   static var getUserEndPoint = baseUrl + '/api/users';
+  // Auth
   static var loginEndPoint = baseUrl + '/api/login';
   static var registerEndPoint = baseUrl + '/api/register';
+  static var updateProfileEndPoint = baseUrl + '/api/update-user';
+  static var resetPasswordEndPoint = baseUrl + '/api/reset-password';
+
+  // Projects
+  static var categoriesEndPoint = baseUrl + '/api/categories';
   static var moviesListEndPoint = movieBaseUrl + '/movies_list';
-  static var projectsEndPoint = baseUrl + '/projects';
+  static var projectsEndPoint = baseUrl + '/api/projects';
   static var logoutEndPoint = baseUrl + '/api/logout';
 
   static const Map<String, String> header = {

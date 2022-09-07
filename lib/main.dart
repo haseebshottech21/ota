@@ -3,14 +3,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:ota/pages/home/home_screen.dart';
+// import 'package:ota/pages/home/home_screen.dart';
 import 'package:ota/themes.dart';
 import 'package:ota/utils/routes/routes.dart';
 import 'package:ota/utils/routes/routes_name.dart';
 import 'package:ota/view_model/auth_view_model.dart';
 import 'package:ota/view_model/bottom_view_model.dart';
+import 'package:ota/view_model/categories_view_model.dart';
 import 'package:ota/view_model/connection_view_model.dart';
 import 'package:ota/view_model/home_view_model.dart';
+import 'package:ota/view_model/project_view_model.dart';
 import 'package:ota/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -50,6 +52,8 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => CategoriesViewModel()),
+        ChangeNotifierProvider(create: (_) => ProjectViewModel()),
         ChangeNotifierProvider(create: (_) => BottomViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => UsersViewModel()),
@@ -64,9 +68,9 @@ class _MyAppState extends State<MyApp> {
         theme: CustomTheme.lightTheme,
         darkTheme: CustomTheme.darkTheme,
         themeMode: currentTheme.currentTheme,
-        home: const MyHome(),
-        // initialRoute: RouteName.intro,
-        // onGenerateRoute: RouteGenerator.onGeneratingRoute,
+        // home: const MyHome(),
+        initialRoute: RouteName.intro,
+        onGenerateRoute: RouteGenerator.onGeneratingRoute,
       ),
     );
   }

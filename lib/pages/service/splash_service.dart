@@ -17,22 +17,6 @@ class SplashService {
       initialization();
       Navigator.pushNamed(context, RouteName.home);
     }
-
-    // getUserData().then((value) async {
-    //   print('Token: ' + value.token.toString());
-    //   if (value.token == 'null' || value.token == '') {
-    //     // await Future.delayed(const Duration(seconds: 3));
-    //     // Navigator.pushNamed(context, RouteName.intro);
-    //     initialization();
-    //   } else {
-    //     await Future.delayed(const Duration(seconds: 3));
-    //     Navigator.pushNamed(context, RouteName.home);
-    //   }
-    // }).onError((error, stackTrace) {
-    //   if (kDebugMode) {
-    //     print(error.toString());
-    //   }
-    // });
   }
 
   void initialization() async {

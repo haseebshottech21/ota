@@ -12,9 +12,34 @@ import '../utils/routes/custom_page_router.dart';
 import '../pages/home/home_screen.dart';
 import '../utils/routes/routes_name.dart';
 import 'package:http/http.dart' as http;
+import '../utils/shared_prefrence.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final _myRepo = AuthRepository();
+  final prefrences = Prefrences();
+
+  Map<String, String> prefrence = {
+    'name': '',
+    'email': '',
+    'phone': '',
+    'image': '',
+  };
+
+  void setPrefrenceValues() async {
+    final name = await prefrences.getSharedPreferenceValue('name');
+    final email = await prefrences.getSharedPreferenceValue('email');
+    final phone = await prefrences.getSharedPreferenceValue('phone');
+    prefrence = {
+      'name': name,
+      'email': email,
+      'phone': phone,
+    };
+    notifyListeners();
+  }
+
+  String getPrefrenceValue(String key) {
+    return (prefrence[key] ?? '').toString();
+  }
 
   bool isRemember = false;
   checkRemeber() {
@@ -137,6 +162,96 @@ class AuthViewModel extends ChangeNotifier {
             //   RouteName.home,
             //   (route) => false,
             // );
+          }
+        },
+      );
+    }).onError((error, stackTrace) {
+      setLoad(false);
+      Utils.errorFlushBarMessage(error.toString(), context);
+      if (kDebugMode) {
+        print(error.toString());
+      }
+    });
+  }
+
+  Future<void> updateProfileApi(
+    dynamic data,
+    Function clearFields,
+    BuildContext context,
+  ) async {
+    setLoad(true);
+    _myRepo.updateProfileApi(data).then((value) {
+      Future.delayed(const Duration(seconds: 1)).then(
+        (value) {
+          setLoad(false);
+          if (kDebugMode) {
+            print(value.toString());
+            clearFields();
+            Navigator.of(context).pop();
+            Utils.loadingFlushBarMessage(
+              'Profile Update Successfully!',
+              context,
+              color: Colors.green,
+            );
+          }
+        },
+      );
+    }).onError((error, stackTrace) {
+      setLoad(false);
+      Utils.errorFlushBarMessage(error.toString(), context);
+      if (kDebugMode) {
+        print(error.toString());
+      }
+    });
+  }
+
+  // Future<void> editMyProfile(
+  //   Map<String, String> body,
+  //   BuildContext context,
+  //   String profileId,
+  // ) async {
+  //   if (!(await utilities.isInternetAvailable())) {
+  //     return;
+  //   }
+  //   final loadedResponse = await myProfileWebService.editMyProfileRequest(body);
+  //   if (loadedResponse != null) {
+  //     Provider.of<AuthenticationViewModel>(context, listen: false)
+  //         .setCredientialValues(
+  //       loadedResponse['data']['first_name'] +
+  //           ' ' +
+  //           loadedResponse['data']['last_name'],
+  //       loadedResponse['data']['image'],
+  //     );
+  //     response = loadedResponse['data'];
+  //     Provider.of<ServicesViewModel>(context, listen: false)
+  //         .myServicesList
+  //         .clear();
+  //     notifyListeners();
+  //     await getMyProfile(profileId);
+  //     Navigator.of(context).pop();
+  //   }
+  // }
+
+  Future<void> updatePasswordApi(
+    dynamic data,
+    Function clearFields,
+    BuildContext context,
+  ) async {
+    setLoad(true);
+    _myRepo.updatePassword(data).then((value) {
+      Future.delayed(const Duration(seconds: 1)).then(
+        (value) {
+          setLoad(false);
+          if (kDebugMode) {
+            print(value.toString());
+            clearFields();
+            // Navigator.pushNamed(context, RouteName.login);
+            Navigator.of(context).pop();
+            Utils.loadingFlushBarMessage(
+              'Password Update Successfully!',
+              context,
+              color: Colors.green,
+            );
           }
         },
       );

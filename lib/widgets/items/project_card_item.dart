@@ -1,13 +1,16 @@
 // import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ota/model/project_model.dart';
 import 'package:ota/utils/routes/routes_name.dart';
 // import 'package:ota/widgets/common/progress_percent.dart';
 // import 'package:ota/widgets/common/fade_in_widget.dart';
 // import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ProjectCardItem extends StatelessWidget {
+  final Project project;
   const ProjectCardItem({
+    required this.project,
     Key? key,
   }) : super(key: key);
 
@@ -22,9 +25,18 @@ class ProjectCardItem extends StatelessWidget {
     //   itemCount: 4,
     //   itemBuilder: _buildAnimatedItem,
     // );
+    // print(project.id);
+
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, RouteName.projectDetail);
+        Navigator.pushNamed(
+          context,
+          RouteName.projectDetail,
+          // arguments: {
+          //   'project_id': project.id.toString(),
+          // },
+        );
+        // _projectDetailScreen(context, project);
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),
@@ -73,7 +85,8 @@ class ProjectCardItem extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'MOBILE APP BIZHUB',
+                                      // 'MOBILE APP BIZHUB',
+                                      project.projectName.toString(),
                                       style: GoogleFonts.openSans(
                                         color: const Color(0xFF3c7cbc),
                                         fontSize: 18,
@@ -81,7 +94,8 @@ class ProjectCardItem extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      'Project detail...',
+                                      // 'Project detail...',
+                                      project.projectSummary.toString(),
                                       style: GoogleFonts.openSans(
                                         // color: Colors.black87,
                                         color: Colors.grey[800],
@@ -127,13 +141,15 @@ class ProjectCardItem extends StatelessWidget {
                                   context: context,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   title: 'Start Date',
-                                  date: '15 MAY, 2021',
+                                  // date: '15 MAY, 2021',
+                                  date: project.deadlineTime.toString(),
                                 ),
                                 projectDate(
                                   context: context,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   title: 'Deadline Date',
-                                  date: '15 JUL, 2021',
+                                  // date: '15 JUL, 2021',
+                                  date: project.createdAt.toString(),
                                 ),
                               ],
                             ),
@@ -373,6 +389,10 @@ class ProjectCardItem extends StatelessWidget {
   //         ),
   //       ),
   //     );
+
+  // void _projectDetailScreen(BuildContext context, Project project) {
+  //   Navigator.pushNamed(context, RouteName.projectDetail, arguments: project);
+  // }
 
   Column projectDate({
     required CrossAxisAlignment crossAxisAlignment,

@@ -18,7 +18,7 @@ class NetworkApiResponse extends BaseApiServices {
       final response = await http
           .get(
             uri,
-            headers: AppUrl.header,
+            headers: await AppUrl().headerWithAuth(),
           )
           .timeout(const Duration(seconds: timeOutDuration));
       responseJson = returnResponse(response);
@@ -37,7 +37,11 @@ class NetworkApiResponse extends BaseApiServices {
 
     try {
       http.Response response = await http
-          .post(uri, body: data, headers: AppUrl.header)
+          .post(
+            uri,
+            body: data,
+            headers: await AppUrl().headerWithAuth(),
+          )
           .timeout(const Duration(seconds: timeOutDuration));
       responseJson = returnResponse(response);
     } on SocketException {

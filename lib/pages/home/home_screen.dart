@@ -20,7 +20,7 @@ class MyHome extends StatefulWidget {
 class _MyHomeState extends State<MyHome> {
   @override
   void initState() {
-    initialization();
+    // initialization();
     super.initState();
   }
 

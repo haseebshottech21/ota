@@ -8,8 +8,6 @@ class HomeViewModel with ChangeNotifier {
 
   ApiResponse<MovieListModel> movieList = ApiResponse.loading();
 
-  
-
   setMoviesList(ApiResponse<MovieListModel> response) {
     movieList = response;
     WidgetsBinding.instance.addPostFrameCallback((_) {

@@ -292,7 +292,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       await sp.signInWithGoogle().then((value) {
         if (sp.hasError == true) {
-          print(sp.errorCode);
+          // print(sp.errorCode);
           Utils.errorFlushBarMessage(sp.errorCode.toString(), context);
         } else {
           // checking whether user exists or not

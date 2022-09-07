@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:ota/model/project_model.dart';
 import 'package:ota/pages/authentication/login.dart';
 import 'package:ota/pages/authentication/sign_up.dart';
 import 'package:ota/pages/home/home_screen.dart';
@@ -38,7 +39,7 @@ class RouteGenerator {
       case RouteName.projectDetail:
         return MaterialPageRoute(
           settings: settings,
-          builder: (ctx) => const ProjectDetailScreen(),
+          builder: (ctx) => const ProjectDetail(),
         );
       // CREATE
       case RouteName.createProject:

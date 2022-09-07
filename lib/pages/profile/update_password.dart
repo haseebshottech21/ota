@@ -24,6 +24,47 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   FocusNode newPassFocusNode = FocusNode();
   FocusNode confirmPassFocusNode = FocusNode();
 
+  bool buttonEnable = false;
+
+  @override
+  void initState() {
+    super.initState();
+    enableButton();
+  }
+
+  clear() {
+    currentPassController.clear();
+    newPassController.clear();
+    confirmPassController.clear();
+  }
+
+  enableButton() {
+    currentPassController.addListener(() {
+      if (newPassController.text.isNotEmpty &&
+          confirmPassController.text.isNotEmpty) {
+        setState(() {
+          buttonEnable = currentPassController.text.isNotEmpty;
+        });
+      }
+    });
+    newPassController.addListener(() {
+      if (confirmPassController.text.isNotEmpty &&
+          currentPassController.text.isNotEmpty) {
+        setState(() {
+          buttonEnable = newPassController.text.isNotEmpty;
+        });
+      }
+    });
+    confirmPassController.addListener(() {
+      if (newPassController.text.isNotEmpty &&
+          currentPassController.text.isNotEmpty) {
+        setState(() {
+          buttonEnable = confirmPassController.text.isNotEmpty;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +122,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                     builder: (context, authViewModel, _) {
                       // print(authViewModel.loading);
                       return ButtonGradient(
+                        buttonEable: buttonEnable,
                         disbleBtnText: 'Update Password',
                         widget: authViewModel.loading
                             ? const CupertinoActivityIndicator(
@@ -93,7 +135,42 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                         onPressed: authViewModel.loading
                             ? null
                             : () {
-                                // authViewModel.login(context);
+                                if (currentPassController.text.isEmpty) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter current password',
+                                    context,
+                                  );
+                                } else if (newPassController.text.isEmpty) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter new password',
+                                    context,
+                                  );
+                                } else if (confirmPassController.text.isEmpty) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter confirm password',
+                                    context,
+                                  );
+                                } else if (newPassController.text.length < 8 ||
+                                    confirmPassController.text.length < 8) {
+                                  Utils.errorFlushBarMessage(
+                                    'Please enter at least 8 digit password',
+                                    context,
+                                  );
+                                } else {
+                                  // print('API hit success');
+                                  Map data = {
+                                    "current_password":
+                                        currentPassController.text,
+                                    "password": newPassController.text,
+                                    "password_confirmation":
+                                        confirmPassController.text,
+                                  };
+                                  authViewModel.updatePasswordApi(
+                                    data,
+                                    clear,
+                                    context,
+                                  );
+                                }
                               },
                       );
                     },
