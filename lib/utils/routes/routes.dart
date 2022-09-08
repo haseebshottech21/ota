@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ota/pages/authentication/login.dart';
 import 'package:ota/pages/authentication/sign_up.dart';
 import 'package:ota/pages/home/home_screen.dart';
+import 'package:ota/pages/leads/sub_lead_detail.dart';
 import 'package:ota/pages/profile/notifications.dart';
 import 'package:ota/pages/profile/update_password.dart';
 import 'package:ota/pages/projects/create_project.dart';
@@ -40,6 +41,12 @@ class RouteGenerator {
         return MaterialPageRoute(
           settings: settings,
           builder: (ctx) => const ProjectDetail(),
+        );
+      // SUB LEAD
+      case RouteName.subLeadDetail:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (ctx) => const SubLeadDetail(),
         );
       // CREATE
       case RouteName.createProject:

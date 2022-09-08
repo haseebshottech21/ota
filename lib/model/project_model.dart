@@ -1,5 +1,7 @@
 // import 'package:ota/model/category.dart';
 
+import 'category_model.dart';
+
 class ProjectListModel {
   late List<Project> project;
 
@@ -52,42 +54,32 @@ class ProjectListModel {
 // }
 
 class Project {
-  late String id;
+  late int id;
   late String projectName;
   late String projectSummary;
-  late String leadId;
-  late String deadlineTime;
-  late String createdAt;
+  // late String leadId;
+  // late String deadlineTime;
+  // late String createdAt;
+  late Category category;
 
   Project({
     required this.id,
     required this.projectName,
     required this.projectSummary,
-    required this.leadId,
-    required this.deadlineTime,
-    required this.createdAt,
+    // required this.leadId,
+    // required this.deadlineTime,
+    // required this.createdAt,
+    required this.category,
   });
 
   Project.fromJson(Map<String, dynamic> json) {
-    id = json['id'].toString();
+    id = json['id'];
     projectName = json['project_name'];
     projectSummary = json['project_summary'];
-    // projectFiles = json['project_files'];
-    leadId = json['lead_id'].toString();
-    // projectCatId = json['project_cat_id'];
-    // developmentStatusId = json['development_status_id'];
-    // projectPriority = json['project_priority'];
-    // price = json['price'];
-    // status = json['status'];
-    deadlineTime = json['deadline_time'];
-    // createdBy = json['created_by'] != null
-    //     ?  CreatedBy.fromJson(json['created_by'])
-    //     : null;
-    // updatedBy = json['updated_by'];
-    createdAt = json['created_at'];
-    // updatedAt = json['updated_at'];
-    // category =
-    //     json['type'] != null ? CategoryModel.fromJson(json['type']) : null;
+    category = (json['type'] != null ? Category.fromJson(json['type']) : null)!;
+    // leadId = json['lead_id'].toString();
+    // deadlineTime = json['deadline_time'];
+    // createdAt = json['created_at'];
   }
 
   Map<String, dynamic> toJson() {
@@ -95,23 +87,11 @@ class Project {
     data['id'] = id;
     data['project_name'] = projectName;
     data['project_summary'] = projectSummary;
-    // data['project_files'] = projectFiles;
-    data['lead_id'] = leadId;
-    // data['project_cat_id'] = projectCatId;
-    // data['development_status_id'] = developmentStatusId;
-    // data['project_priority'] = projectPriority;
-    // data['price'] = price;
-    // data['status'] = status;
-    data['deadline_time'] = deadlineTime;
-    // if (createdBy != null) {
-    //   data['created_by'] = createdBy!.toJson();
-    // }
-    // data['updated_by'] = updatedBy;
-    data['created_at'] = createdAt;
-    // data['updated_at'] = updatedAt;
-    // if (category != null) {
-    //   data['type'] = category;
-    // }
+    data['type'] = category.toJson();
+    // data['lead_id'] = leadId;
+    // data['deadline_time'] = deadlineTime;
+    // data['created_at'] = createdAt;
+
     return data;
   }
 }

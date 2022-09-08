@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ota/pages/projects/components/project_card.dart';
 import 'package:ota/view_model/categories_view_model.dart';
 import 'package:ota/view_model/project_view_model.dart';
 import 'package:ota/widgets/common/cached_image.dart';
@@ -8,7 +9,6 @@ import 'package:provider/provider.dart';
 import '../../data/response/status.dart';
 import '../../view_model/auth_view_model.dart';
 import '../../widgets/items/categories_item.dart';
-import '../../widgets/items/project_card_item.dart';
 
 class MyProjects extends StatefulWidget {
   const MyProjects({Key? key}) : super(key: key);

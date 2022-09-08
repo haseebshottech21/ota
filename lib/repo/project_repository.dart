@@ -16,14 +16,15 @@ class ProjectRepository {
     }
   }
 
-  // Future<Project> fetchProjectsDetail({required String projectId}) async {
-  //   try {
-  //     dynamic response = await _apiServices
-  //         .getGetApiResponse('http://10.0.0.39:125/api/projects/$projectId');
-  //     return Project.fromJson(response);
-  //   } catch (e) {
-  //     print(e.toString());
-  //     rethrow;
-  //   }
-  // }
+  Future<Project> fetchProjectsDetail({required String projectId}) async {
+    try {
+      dynamic response = await _apiServices
+          .getGetApiResponse(AppUrl.projectsEndPoint + '/$projectId');
+      // print(response);
+      return Project.fromJson(response['data']);
+    } catch (e) {
+      // print(e.toString());
+      rethrow;
+    }
+  }
 }

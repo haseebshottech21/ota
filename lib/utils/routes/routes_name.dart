@@ -12,6 +12,9 @@ class RouteName {
   // Projects
   static const String projectDetail = 'project-detail';
 
+  // Sub Lead
+  static const String subLeadDetail = 'sub-lead-detail';
+
   // Create
   static const String createProject = 'create-project';
   static const String projectField = 'project-field';

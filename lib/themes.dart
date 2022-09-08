@@ -19,10 +19,16 @@ class CustomTheme with ChangeNotifier {
       scaffoldBackgroundColor: Colors.white,
       fontFamily: 'Work Sans',
       bottomAppBarColor: Colors.white,
-      appBarTheme: const AppBarTheme(
-        color: Colors.black,
-        // backgroundColor: Colors.black,
-      ),
+      // useMaterial3: true,
+      // appBarTheme: const AppBarTheme(
+      //   color: Colors.white,
+      //   actionsIconTheme: IconThemeData(
+      //     color: Colors.white,
+      //   ),
+      //   iconTheme: IconThemeData(
+      //     color: Colors.white,
+      //   ),
+      // ),
       // bottomAppBarTheme: const BottomAppBarTheme(
       //   color: Colors.black,
       // ),
@@ -74,10 +80,12 @@ class CustomTheme with ChangeNotifier {
       scaffoldBackgroundColor: Colors.grey.shade900,
       fontFamily: 'Work Sans',
       bottomAppBarColor: Colors.black26,
-      appBarTheme: const AppBarTheme(
-        color: Colors.white,
-        // backgroundColor: Colors.white,
-      ),
+      // appBarTheme: const AppBarTheme(
+      //   color: Colors.white,
+      //   iconTheme: IconThemeData(
+      //     color: Colors.white,
+      //   ),
+      // ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           primary: Colors.grey.shade700,

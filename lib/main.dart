@@ -13,6 +13,7 @@ import 'package:ota/view_model/categories_view_model.dart';
 import 'package:ota/view_model/connection_view_model.dart';
 import 'package:ota/view_model/home_view_model.dart';
 import 'package:ota/view_model/project_view_model.dart';
+import 'package:ota/view_model/subleads_view_model.dart';
 import 'package:ota/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +55,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(create: (_) => CategoriesViewModel()),
         ChangeNotifierProvider(create: (_) => ProjectViewModel()),
+        ChangeNotifierProvider(create: (_) => LeadsViewModel()),
         ChangeNotifierProvider(create: (_) => BottomViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => UsersViewModel()),

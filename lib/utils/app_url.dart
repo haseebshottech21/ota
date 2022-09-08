@@ -14,12 +14,15 @@ class AppUrl {
   static var registerEndPoint = baseUrl + '/api/register';
   static var updateProfileEndPoint = baseUrl + '/api/update-user';
   static var resetPasswordEndPoint = baseUrl + '/api/reset-password';
+  static var logoutEndPoint = baseUrl + '/api/logout';
 
   // Projects
   static var categoriesEndPoint = baseUrl + '/api/categories';
   static var moviesListEndPoint = movieBaseUrl + '/movies_list';
   static var projectsEndPoint = baseUrl + '/api/projects';
-  static var logoutEndPoint = baseUrl + '/api/logout';
+
+  // Leads
+  static var subLeadsEndPoint = baseUrl + '/api/sub-leads';
 
   static const Map<String, String> header = {
     'Accept': 'application/json',

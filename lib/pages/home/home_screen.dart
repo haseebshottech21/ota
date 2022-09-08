@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../utils/icons.dart';
 import '../../view_model/bottom_view_model.dart';
 import '../chats/my_chats.dart';
+import '../leads/sub_leads.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);
@@ -140,7 +141,7 @@ class _MyHomeState extends State<MyHome> {
         },
         children: const <Widget>[
           MyProjects(),
-          MyProjects(),
+          SubLeads(),
           Chats(),
           ProfileScreen(),
         ],

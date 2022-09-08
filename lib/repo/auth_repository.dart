@@ -81,6 +81,8 @@ class AuthRepository {
         'email', loadedData['user']['email']);
     await prefrences.setSharedPreferenceValue(
         'phone', loadedData['user']['phone']);
+    await prefrences.setSharedPreferenceValue(
+        'role', loadedData['user']['role']);
   }
 
   // Future<void> updateCrediential(dynamic loadedData) async {

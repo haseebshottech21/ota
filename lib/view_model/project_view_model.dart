@@ -7,7 +7,7 @@ class ProjectViewModel with ChangeNotifier {
   final _projectRepo = ProjectRepository();
 
   ApiResponse<ProjectListModel> projectList = ApiResponse.loading();
-  // ApiResponse<ProjectDetail> projectDetail = ApiResponse.loading();
+  ApiResponse<Project> projectDetail = ApiResponse.loading();
   // Project get selectProject => _selectProject;
 
   // ALL PROJECTS
@@ -28,19 +28,29 @@ class ProjectViewModel with ChangeNotifier {
     });
   }
 
-  // // SHOW PROJECT DETAIL
-  // setProjectDetail(Project project) {
-  //   _selectProject = project;
-  //   // print(projectDetail.data!.project!.projectName.toString());
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     notifyListeners();
-  //   });
-  // }
+  // SHOW PROJECT DETAIL
+  setProjectDetail(ApiResponse<Project> response) {
+    projectDetail = response;
 
-  // Future<void> fetchProjectDetailApi() async {
-  //   setLoad(true);
-  //   var response = await _projectRepo.fetchProjectsDetail(projectId: '28');
-  //   // print(response);
-  //   setProjectDetail(response);
-  // }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+    // print('detail :  ' + projectDetail.data!.projectName);
+  }
+
+  Future<void> fetchProjectDetailApi({
+    required String projectId,
+  }) async {
+    // setLoad(true);
+    // var response = await _projectRepo.fetchProjectsDetail(projectId: projectId);
+    // print(response);
+    // setProjectDetail(response);
+
+    setProjectDetail(ApiResponse.loading());
+    _projectRepo.fetchProjectsDetail(projectId: projectId).then((value) {
+      setProjectDetail(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setProjectDetail(ApiResponse.error(error.toString()));
+    });
+  }
 }
