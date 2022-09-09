@@ -56,13 +56,13 @@ class RouteGenerator {
           direction: AxisDirection.up,
           milisecond: 300,
         );
-      case RouteName.projectField:
-        return CustomPageRouter(
-          child: const TextfieldFullBody(),
-          settings: settings,
-          direction: AxisDirection.up,
-          milisecond: 200,
-        );
+      // case RouteName.projectField:
+      //   return CustomPageRouter(
+      //     child: TextfieldFullBody(),
+      //     settings: settings,
+      //     direction: AxisDirection.up,
+      //     milisecond: 200,
+      //   );
       // PROFILE
       case RouteName.updateMyProfile:
         // return MaterialPageRoute(

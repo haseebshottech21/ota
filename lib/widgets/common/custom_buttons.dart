@@ -69,3 +69,51 @@ class ButtonGradient extends StatelessWidget {
     );
   }
 }
+
+class PostButton extends StatelessWidget {
+  final Widget widget;
+  final VoidCallback? onPressed;
+  const PostButton({
+    required this.widget,
+    required this.onPressed,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // width: double.infinity,
+      height: 45.0,
+      // padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+      decoration: BoxDecoration(
+        color: const Color(0xFF3c7cbc),
+        borderRadius: BorderRadius.circular(5),
+        // gradient: const LinearGradient(
+        //   // begin: Alignment.topLeft,
+        //   // end: Alignment.bottomRight,
+        //   // stops: [0.1, 0.7],
+        //   colors: [
+        //     Color(0xFF08a7dc),
+        //     Color(0xFF1393d0),
+        //   ],
+        // ),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.grey.shade500,
+        //     offset: Offset(0.0, 1.5),
+        //     blurRadius: 0,
+        //   ),
+        // ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
+          child: Center(
+            child: widget,
+          ),
+        ),
+      ),
+    );
+  }
+}

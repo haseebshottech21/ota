@@ -19,6 +19,7 @@ class AppUrl {
   // Projects
   static var categoriesEndPoint = baseUrl + '/api/categories';
   static var moviesListEndPoint = movieBaseUrl + '/movies_list';
+  // static var createProjectsEndPoint = baseUrl + '/api/create-projects';
   static var projectsEndPoint = baseUrl + '/api/projects';
 
   // Leads

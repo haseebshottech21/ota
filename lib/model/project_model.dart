@@ -1,5 +1,3 @@
-// import 'package:ota/model/category.dart';
-
 import 'category_model.dart';
 
 class ProjectListModel {
@@ -57,18 +55,16 @@ class Project {
   late int id;
   late String projectName;
   late String projectSummary;
-  // late String leadId;
-  // late String deadlineTime;
-  // late String createdAt;
+  late String createdAt;
+  late String deadlineTime;
   late Category category;
 
   Project({
     required this.id,
     required this.projectName,
     required this.projectSummary,
-    // required this.leadId,
-    // required this.deadlineTime,
-    // required this.createdAt,
+    required this.createdAt,
+    required this.deadlineTime,
     required this.category,
   });
 
@@ -76,10 +72,9 @@ class Project {
     id = json['id'];
     projectName = json['project_name'];
     projectSummary = json['project_summary'];
+    deadlineTime = json['deadline_time'];
+    createdAt = json['created_at'];
     category = (json['type'] != null ? Category.fromJson(json['type']) : null)!;
-    // leadId = json['lead_id'].toString();
-    // deadlineTime = json['deadline_time'];
-    // createdAt = json['created_at'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,10 +82,9 @@ class Project {
     data['id'] = id;
     data['project_name'] = projectName;
     data['project_summary'] = projectSummary;
+    data['deadline_time'] = deadlineTime;
+    data['created_at'] = createdAt;
     data['type'] = category.toJson();
-    // data['lead_id'] = leadId;
-    // data['deadline_time'] = deadlineTime;
-    // data['created_at'] = createdAt;
 
     return data;
   }

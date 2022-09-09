@@ -27,4 +27,15 @@ class ProjectRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> createProject(dynamic data) async {
+    try {
+      dynamic response =
+          await _apiServices.getPostApiResponse(AppUrl.projectsEndPoint, data);
+      // print(response);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

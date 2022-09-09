@@ -28,6 +28,8 @@ IconData cameraSolid = CupertinoIcons.camera_fill;
 IconData showPassword = CupertinoIcons.eye_solid;
 IconData hidePassword = CupertinoIcons.eye_slash_fill;
 
+IconData add = CupertinoIcons.add_circled;
+
 IconData delete = CupertinoIcons.trash_fill;
 
 IconData cancel = CupertinoIcons.clear;

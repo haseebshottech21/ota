@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ota/utils/utils.dart';
 import '../../../model/project_model.dart';
 import '../../../utils/routes/routes_name.dart';
 
@@ -76,14 +77,20 @@ class ProjectCardItem extends StatelessWidget {
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                    Text(
-                                      // 'Project detail...',
-                                      project.projectSummary.toString(),
-                                      style: GoogleFonts.openSans(
-                                        // color: Colors.black87,
-                                        color: Colors.grey[800],
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
+                                    SizedBox(
+                                      width: constraints.maxWidth * 0.80,
+                                      child: Text(
+                                        // 'Project detail...',
+                                        project.projectSummary.toString(),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        style: GoogleFonts.openSans(
+                                          // color: Colors.black87,
+                                          color: Colors.grey[800],
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -124,15 +131,19 @@ class ProjectCardItem extends StatelessWidget {
                                   context: context,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   title: 'Start Date',
-                                  date: '15 MAY, 2021',
-                                  // date: project.deadlineTime.toString(),
+                                  // date: '15 MAY, 2021',
+                                  date: Utils().dateFormat(
+                                    project.createdAt.toString(),
+                                  ),
                                 ),
                                 projectDate(
                                   context: context,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   title: 'Deadline Date',
-                                  date: '15 JUL, 2021',
-                                  // date: project.createdAt.toString(),
+                                  // date: '15 JUL, 2021',
+                                  date: Utils().dateFormat(
+                                    project.deadlineTime.toString(),
+                                  ),
                                 ),
                               ],
                             ),
