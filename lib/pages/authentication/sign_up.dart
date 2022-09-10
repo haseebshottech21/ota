@@ -253,7 +253,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 if (fullNameController.text.isEmpty) {
                                   Utils.errorFlushBarMessage(
                                     'Please enter full name',
-                                    context,
+                                    context,  
                                   );
                                 } else if (emailController.text.isEmpty) {
                                   Utils.errorFlushBarMessage(

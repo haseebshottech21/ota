@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ota/utils/utils.dart';
+import 'package:ota/view_model/bottom_view_model.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../data/response/api_response.dart';
 import '../repo/auth_repository.dart';
 import '../utils/routes/custom_page_router.dart';
 import '../pages/home/home_screen.dart';
@@ -17,6 +20,8 @@ import '../utils/shared_prefrence.dart';
 class AuthViewModel extends ChangeNotifier {
   final _myRepo = AuthRepository();
   final prefrences = Prefrences();
+
+  ApiResponse<User> userProfile = ApiResponse.loading();
 
   Map<String, String> prefrence = {
     'name': '',
@@ -174,9 +179,23 @@ class AuthViewModel extends ChangeNotifier {
     });
   }
 
+  // setUpdateProfile(ApiResponse<User> response) {
+  //   userProfile = response;
+  //   // print(projectList.data!.project!.length);
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     notifyListeners();
+  //   });
+  // }
+
+  Future<void> showUserProfile() async {
+    setLoad(true);
+    _myRepo.showUserProfile().then((value) {
+      setLoad(false);
+    });
+  }
+
   Future<void> updateProfileApi(
     dynamic data,
-    Function clearFields,
     BuildContext context,
   ) async {
     setLoad(true);
@@ -186,8 +205,7 @@ class AuthViewModel extends ChangeNotifier {
           setLoad(false);
           if (kDebugMode) {
             print(value.toString());
-            clearFields();
-            Navigator.of(context).pop();
+            // Navigator.of(context).pop();
             Utils.loadingFlushBarMessage(
               'Profile Update Successfully!',
               context,
@@ -196,6 +214,7 @@ class AuthViewModel extends ChangeNotifier {
           }
         },
       );
+      showUserProfile();
     }).onError((error, stackTrace) {
       setLoad(false);
       Utils.errorFlushBarMessage(error.toString(), context);
@@ -276,6 +295,8 @@ class AuthViewModel extends ChangeNotifier {
       Future.delayed(const Duration(seconds: 3)).then(
         (value) {
           setLoad(false);
+          Provider.of<BottomViewModel>(context, listen: false)
+              .bottomCurrentIndex = 0;
           Navigator.pushNamed(context, RouteName.login);
           Utils.loadingFlushBarMessage(
             'Logged Out.',

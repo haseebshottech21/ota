@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class BottomViewModel extends ChangeNotifier {
-  int _bottomCurrentIndex = 0;
+  int bottomCurrentIndex = 0;
 
-  int get currentIndex => _bottomCurrentIndex;
+  int get currentIndex => bottomCurrentIndex;
 
   toggleCurrentIndex(int index) {
-    _bottomCurrentIndex = index;
+    bottomCurrentIndex = index;
     notifyListeners();
   }
 }

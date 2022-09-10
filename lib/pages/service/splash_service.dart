@@ -9,7 +9,9 @@ class SplashService {
 
   void checkAuthentication(BuildContext context) async {
     final token = await prefrences.getSharedPreferenceValue('token');
+    final userId = await prefrences.getSharedPreferenceValue('user_id');
     print('token ' + token.toString());
+    print('user_id ' + userId.toString());
     if (token == null || token == '') {
       initialization();
     } else {

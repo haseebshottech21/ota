@@ -3,17 +3,14 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:ota/model/project_model.dart';
 import 'package:ota/pages/projects/components/create_project_body.dart';
 import 'package:ota/view_model/categories_view_model.dart';
 import 'package:ota/view_model/project_view_model.dart';
 import 'package:ota/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants.dart';
 import '../../utils/colors.dart';
 import '../../utils/utils.dart';
-// import 'package:intl/intl.dart';
 
 class CreateProject extends StatefulWidget {
   const CreateProject({Key? key}) : super(key: key);
@@ -112,67 +109,6 @@ class _CreateProjectState extends State<CreateProject> {
         automaticallyImplyLeading: true,
       ),
       body: const CreateProjectBody(),
-      // bottomSheet: SafeArea(
-      //   child: Container(
-      //     // height: MediaQuery.of(context).size.height * 0.10,
-      //     padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 25.0),
-      //     color: Colors.white,
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: [
-      //         Padding(
-      //           padding: const EdgeInsets.symmetric(horizontal: 10),
-      //           child: Consumer<ProjectViewModel>(
-      //             builder: (context, projectViewModel, _) {
-      //               return PostButton(
-      //                 widget: projectViewModel.loading
-      //                     ? const CupertinoActivityIndicator(
-      //                         color: Colors.white,
-      //                       )
-      //                     : Text(
-      //                         'POST',
-      //                         style: Constant.formButtonStyle,
-      //                       ),
-      //                 onPressed: projectViewModel.loading
-      //                     ? null
-      //                     : () {
-      //                         if (projectViewModel
-      //                             .projectTitleController.text.isEmpty) {
-      //                           Utils.errorFlushBarMessage(
-      //                             'Please add project title',
-      //                             context,
-      //                           );
-      //                         } else if (projectViewModel
-      //                             .projectDetailController.text.isEmpty) {
-      //                           Utils.errorFlushBarMessage(
-      //                             'Please add project detail',
-      //                             context,
-      //                           );
-      //                         } else {
-      //                           Map data = {
-      //                             "project_cat_id": category.projectCatyId,
-      //                             "project_name": projectViewModel
-      //                                 .projectTitleController.text,
-      //                             "project_summary": projectViewModel
-      //                                 .projectDetailController.text,
-      //                             "deadline_time":
-      //                                 projectViewModel.selectedDate.toString(),
-      //                           };
-      //                           // print(data);
-      //                           projectViewModel.createProjectApi(
-      //                             data,
-      //                             context,
-      //                           );
-      //                         }
-      //                       },
-      //               );
-      //             },
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
       bottomSheet: SafeArea(
         child: Container(
           padding: const EdgeInsets.fromLTRB(12.0, 16.0, 12.0, 24.0),
@@ -185,37 +121,7 @@ class _CreateProjectState extends State<CreateProject> {
             //   ),
             // ),
           ),
-          child:
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              // Container(
-              //   margin: const EdgeInsets.only(right: 5),
-              //   child: Text(
-              //     title,
-              //     style: const TextStyle(
-              //       color: Colors.black,
-              //       fontSize: 14.0,
-              //     ),
-              //   ),
-              // ),
-              // InkWell(
-              //   onTap: onTap,
-              //   child: Container(
-              //     // margin: const EdgeInsets.only(right: 5),
-              //     padding: const EdgeInsets.only(right: 5),
-              //     child: Text(
-              //       text,
-              //       style: const TextStyle(
-              //         color: MyColors.mainColor,
-              //         fontSize: 15.0,
-              //         fontWeight: FontWeight.w500,
-              //         letterSpacing: 0.5,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              Consumer<ProjectViewModel>(
+          child: Consumer<ProjectViewModel>(
             builder: (context, projectViewModel, _) {
               return PostButton(
                 widget: projectViewModel.loading

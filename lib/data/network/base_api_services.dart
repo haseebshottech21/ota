@@ -3,6 +3,8 @@ abstract class BaseApiServices {
 
   Future<dynamic> getPostApiResponse(String url, dynamic data);
 
+  Future getDeleteApiResponse(String url);
+
   // LOGOUT
   Future getLogoutApiResponse(String url);
 }

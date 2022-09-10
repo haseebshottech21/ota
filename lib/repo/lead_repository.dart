@@ -9,6 +9,17 @@ import '../utils/app_url.dart';
 class LeadRepository {
   final BaseApiServices _apiServices = NetworkApiResponse();
 
+  Future<dynamic> createSubLeads(dynamic data) async {
+    try {
+      dynamic response =
+          await _apiServices.getPostApiResponse(AppUrl.registerEndPoint, data);
+      // print(response);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<SubLeadsListModel> fetchSubLeadList() async {
     try {
       dynamic response =
@@ -23,8 +34,20 @@ class LeadRepository {
     try {
       dynamic response = await _apiServices
           .getGetApiResponse(AppUrl.subLeadsEndPoint + '/$leadId');
-      print(response);
+      // print(response);
       return User.fromJson(response['data']);
+    } catch (e) {
+      // print(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<dynamic> deletSubLead({required String leadId}) async {
+    try {
+      dynamic response = await _apiServices
+          .getDeleteApiResponse(AppUrl.subLeadsEndPoint + '/$leadId');
+      // print(response);
+      return response;
     } catch (e) {
       // print(e.toString());
       rethrow;

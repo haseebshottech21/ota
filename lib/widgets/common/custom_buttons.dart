@@ -24,7 +24,7 @@ class ButtonGradient extends StatelessWidget {
               height: 50.0,
               // padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(4.0),
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -87,7 +87,7 @@ class PostButton extends StatelessWidget {
       // padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       decoration: BoxDecoration(
         color: const Color(0xFF3c7cbc),
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(4.0),
         // gradient: const LinearGradient(
         //   // begin: Alignment.topLeft,
         //   // end: Alignment.bottomRight,

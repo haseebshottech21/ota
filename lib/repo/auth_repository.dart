@@ -1,5 +1,4 @@
 // import 'dart:convert';
-
 import '../data/network/base_api_services.dart';
 import '../data/network/network_api_services.dart';
 import '../utils/app_url.dart';
@@ -29,6 +28,19 @@ class AuthRepository {
       // print(response);
       return response;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> showUserProfile() async {
+    try {
+      dynamic response =
+          await _apiServices.getGetApiResponse(AppUrl.showProfileEndPoint);
+      print(response);
+      updateCrediential(response['data']);
+      return response;
+    } catch (e) {
+      // print(e.toString());
       rethrow;
     }
   }
@@ -76,6 +88,8 @@ class AuthRepository {
   Future<void> setCrediential(dynamic loadedData) async {
     await prefrences.setSharedPreferenceValue('token', loadedData['token']);
     await prefrences.setSharedPreferenceValue(
+        'user_id', loadedData['user']['id'].toString());
+    await prefrences.setSharedPreferenceValue(
         'name', loadedData['user']['name']);
     await prefrences.setSharedPreferenceValue(
         'email', loadedData['user']['email']);
@@ -83,6 +97,14 @@ class AuthRepository {
         'phone', loadedData['user']['phone']);
     await prefrences.setSharedPreferenceValue(
         'role', loadedData['user']['role']);
+  }
+
+  Future<void> updateCrediential(dynamic loadedData) async {
+    await prefrences.setSharedPreferenceValue(
+        'user_id', loadedData['id'].toString());
+    await prefrences.setSharedPreferenceValue('name', loadedData['name']);
+    await prefrences.setSharedPreferenceValue('email', loadedData['email']);
+    await prefrences.setSharedPreferenceValue('phone', loadedData['phone']);
   }
 
   // Future<void> updateCrediential(dynamic loadedData) async {

@@ -12,6 +12,7 @@ class AppUrl {
   // Auth
   static var loginEndPoint = baseUrl + '/api/login';
   static var registerEndPoint = baseUrl + '/api/register';
+  static var showProfileEndPoint = baseUrl + '/api/show-user';
   static var updateProfileEndPoint = baseUrl + '/api/update-user';
   static var resetPasswordEndPoint = baseUrl + '/api/reset-password';
   static var logoutEndPoint = baseUrl + '/api/logout';

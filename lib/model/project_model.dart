@@ -52,7 +52,7 @@ class ProjectListModel {
 // }
 
 class Project {
-  late int id;
+  late String id;
   late String projectName;
   late String projectSummary;
   late String createdAt;
@@ -69,7 +69,7 @@ class Project {
   });
 
   Project.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     projectName = json['project_name'];
     projectSummary = json['project_summary'];
     deadlineTime = json['deadline_time'];

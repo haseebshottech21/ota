@@ -51,6 +51,27 @@ class NetworkApiResponse extends BaseApiServices {
     return responseJson;
   }
 
+  // DELETE API
+  @override
+  Future getDeleteApiResponse(String url) async {
+    var uri = Uri.parse(url);
+    dynamic responseJson;
+
+    try {
+      final response = await http
+          .delete(
+            uri,
+            headers: await AppUrl().headerWithAuth(),
+          )
+          .timeout(const Duration(seconds: timeOutDuration));
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connetion! ');
+    }
+
+    return responseJson;
+  }
+
   // LOGOUT API
   @override
   Future getLogoutApiResponse(String url) async {

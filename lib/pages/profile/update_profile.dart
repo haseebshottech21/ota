@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ota/utils/icons.dart';
 import 'package:ota/widgets/common/custom_buttons.dart';
 import 'package:ota/widgets/common/cached_image.dart';
@@ -7,6 +8,7 @@ import 'package:ota/widgets/common/custom_textfields.dart';
 import 'package:ota/widgets/common/top_bar.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
+import '../../utils/shared_prefrence.dart';
 import '../../utils/utils.dart';
 import '../../view_model/auth_view_model.dart';
 
@@ -18,6 +20,7 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
+  final prefrences = Prefrences();
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -28,10 +31,20 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   bool buttonEnable = true;
 
-  clear() {
-    fullNameController.clear();
-    emailController.clear();
-    phoneController.clear();
+  @override
+  void initState() {
+    getProfileValues();
+    super.initState();
+  }
+
+  getProfileValues() async {
+    final name = await prefrences.getSharedPreferenceValue('name');
+    final email = await prefrences.getSharedPreferenceValue('email');
+    final phone = await prefrences.getSharedPreferenceValue('phone');
+
+    fullNameController.text = name;
+    emailController.text = email;
+    phoneController.text = phone;
   }
 
   @override
@@ -126,29 +139,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     controller: phoneController,
                     node: phoneFocusNode,
                     icon: Icons.phone,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(11),
+                    ],
                   ),
                   const SizedBox(height: 15),
-                  // Consumer<AuthViewModel>(
-                  //   builder: (context, authViewModel, _) {
-                  //     // print(authViewModel.loading);
-                  //     return ButtonGradient(
-                  //       disbleBtnText: 'Update',
-                  //       widget: authViewModel.loading
-                  //           ? const CupertinoActivityIndicator(
-                  //               color: Colors.white,
-                  //             )
-                  //           : Text(
-                  //               'Update',
-                  //               style: Constant.formButtonStyle,
-                  //             ),
-                  //       onPressed: authViewModel.loading
-                  //           ? null
-                  //           : () {
-                  //               // authViewModel.login(context);
-                  //             },
-                  //     );
-                  //   },
-                  // ),
                   Consumer<AuthViewModel>(
                     builder: (context, authViewModel, _) {
                       // print(authViewModel.loading);
@@ -194,7 +190,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   };
                                   authViewModel.updateProfileApi(
                                     data,
-                                    clear,
                                     context,
                                   );
                                 }
