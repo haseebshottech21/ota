@@ -30,15 +30,15 @@ class _CreateSubLeadState extends State<CreateSubLead> {
   FocusNode phoneFocusNode = FocusNode();
 
   void createSubLead(BuildContext context) async {
-    final userId = await prefrences.getSharedPreferenceValue('user_id');
+    // final userId = await prefrences.getSharedPreferenceValue('user_id');
     final subLeadViewModel =
         Provider.of<LeadsViewModel>(context, listen: false);
     Map data = {
       "name": fullNameController.text,
       "email": emailController.text,
       "phone": phoneController.text,
-      "role_id": '5',
-      "user_id": userId,
+      // "role_id": '5',
+      // "user_id": userId,
     };
     // print(data);
     subLeadViewModel.createSubLeadApi(data, clear, context);

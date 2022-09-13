@@ -44,6 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     // final authViewModel = context.watch<AuthViewModel>();
+    final auth = context.watch<AuthViewModel>();
 
     return SafeArea(
       child: Scaffold(
@@ -55,23 +56,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.only(top: 20),
                 child: Center(
                   child: CachedImageWidget(
-                    height: 120,
-                    width: 120,
+                    height: 115,
+                    width: 115,
                     radius: 15,
                     imgUrl:
                         'https://i.pinimg.com/736x/25/78/61/25786134576ce0344893b33a051160b1.jpg',
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Center(
                 child: MyFadeIn(
                   child: Text(
-                    'Bessie Cooper',
+                    auth.getPrefrenceValue('name'),
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyText1!.color,
                       // color: Color(0xFF50182c),
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.0,
                     ),
@@ -79,20 +80,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 5),
-              Center(
-                child: MyFadeIn(
-                  child: Text(
-                    'CEO COMPANY',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyText1!.color,
-                      // color: Color(0xFF50182c),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 1.0,
-                    ),
-                  ),
-                ),
-              ),
+              // Center(
+              //   child: MyFadeIn(
+              //     child: Text(
+              //       'CEO COMPANY',
+              //       style: TextStyle(
+              //         color: Theme.of(context).textTheme.bodyText1!.color,
+              //         // color: Color(0xFF50182c),
+              //         fontSize: 15,
+              //         fontWeight: FontWeight.w400,
+              //         letterSpacing: 1.0,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 25),
               Padding(
                 padding: const EdgeInsets.only(left: 15),
@@ -173,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               context: context,
                               title: 'Confirm Logout',
                               subTitle: 'You are about to logout',
-                              onPressed: () {
+                              press: () {
                                 Navigator.of(context).pop();
                                 // authViewModel.logout(context);
                                 context

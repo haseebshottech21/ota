@@ -28,15 +28,13 @@ class ProjectDetailBody extends StatelessWidget {
           // iconTheme: Theme.of(context).appBarTheme.actionsIconTheme,
           // actionsIconTheme: Theme.of(context).appBarTheme.actionsIconTheme,
           backgroundColor: const Color(0xFF221c49).withOpacity(0.9),
-
-          automaticallyImplyLeading: true,
-          // leading: IconButton(
-          //   onPressed: () {},
-          //   icon: const Icon(
-          //     Icons.arrow_back,
-          //     color: Colors.white,
+          // shape: const RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.only(
+          //     bottomLeft: Radius.circular(10),
+          //     bottomRight: Radius.circular(10),
           //   ),
           // ),
+          automaticallyImplyLeading: true,
           title: Container(
             padding: const EdgeInsets.all(6.0),
             // decoration: BoxDecoration(
@@ -44,24 +42,12 @@ class ProjectDetailBody extends StatelessWidget {
             //     // borderRadius: BorderRadius.circular(16),
             //     ),
             child: const Text(
-              'App Bar',
+              'Project Detail',
               // style: TextStyle(fontSize: 16.0),
             ),
           ),
           elevation: 0,
           expandedHeight: 200,
-          // flexibleSpace: FlexibleSpaceBar(
-          //   // background: Image.network(
-          //   //   'https://www.rc.virginia.edu/images/accord/project.png',
-          //   //   fit: BoxFit.cover,
-          //   // ),
-          //   background: Image.network(
-          //     'https://images.unsplash.com/photo-1572177812156-58036aae439c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvamVjdHxlbnwwfHwwfHw%3D&w=1000&q=80',
-          //     fit: BoxFit.cover,
-          //     // height: constraints.maxHeight * 0.50,
-          //     width: double.infinity,
-          //   ),
-          // ),
           flexibleSpace: Stack(
             children: [
               ClipRect(
@@ -77,7 +63,7 @@ class ProjectDetailBody extends StatelessWidget {
                   'https://images.unsplash.com/photo-1572177812156-58036aae439c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvamVjdHxlbnwwfHwwfHw%3D&w=1000&q=80',
                   fit: BoxFit.cover,
                   // height: constraints.maxHeight * 0.50,
-                  width: double.infinity,
+                  // width: MediaQuery.of(context).size.width * 0.50,
                 ),
               ),
             ],
@@ -179,22 +165,22 @@ class ProjectDetailBody extends StatelessWidget {
                             .toString(),
                         context: context,
                       ),
-                      const SizedBox(height: 25),
-                      Text(
-                        'Assign Project',
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.headline1!.color,
-                          // color: Color(0xFF50182c),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      assignDetail(
-                        name: 'Abdul Rafay',
-                        designation: 'Sr. Wordpress Developer',
-                        context: context,
-                      )
+                      // const SizedBox(height: 25),
+                      // Text(
+                      //   'Assign Project',
+                      //   style: TextStyle(
+                      //     color: Theme.of(context).textTheme.headline1!.color,
+                      //     // color: Color(0xFF50182c),
+                      //     fontSize: 15,
+                      //     fontWeight: FontWeight.w600,
+                      //   ),
+                      // ),
+                      // const SizedBox(height: 15),
+                      // assignDetail(
+                      //   name: 'Abdul Rafay',
+                      //   designation: 'Sr. Wordpress Developer',
+                      //   context: context,
+                      // )
                     ],
                   ),
                 ),

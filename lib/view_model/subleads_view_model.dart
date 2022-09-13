@@ -108,20 +108,16 @@ class LeadsViewModel with ChangeNotifier {
   }) async {
     setLoad(true);
     _leadRepo.deletSubLead(leadId: leadId).then((value) {
-      Utils.loadingFlushBarMessage(
-        'Deleting...',
-        context,
-      );
-      Future.delayed(const Duration(seconds: 3)).then(
-        (value) {
-          setLoad(false);
-          // Navigator.of(context).pop();
-          Utils.loadingFlushBarMessage(
-            'Delete Succsess!',
-            context,
-          );
-        },
-      );
+      Navigator.of(context).pop();
+      Future.delayed(Duration.zero).then((value) {
+        setLoad(false);
+        fetchSubLeadsListApi();
+        Utils.loadingFlushBarMessage(
+          'Sub Lead delete Successfully!',
+          context,
+          color: Colors.green,
+        );
+      });
     }).onError((error, stackTrace) {
       setLoad(false);
       Utils.errorFlushBarMessage(error.toString(), context);

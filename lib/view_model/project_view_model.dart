@@ -12,7 +12,7 @@ class ProjectViewModel with ChangeNotifier {
   String formattedDate = '';
   TextEditingController projectTitleController = TextEditingController();
   TextEditingController projectDetailController = TextEditingController();
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate = DateTime.now();
 
   selectTitleController(TextEditingController controller) {
     projectTitleController.text = controller.text;
@@ -24,16 +24,26 @@ class ProjectViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  // bool enableController = false;
+
+  // save(bool controller) {
+  //   if (projectTitleController.text.isEmpty) {
+  //     enableController = false;
+  //   } else {
+  //     enableController = true;
+  //   }
+  // }
+
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: selectedDate,
+        initialDate: selectedDate!,
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       // setState(() {
       selectedDate = picked;
-      formattedDate = DateFormat('yy-MM-dd').format(selectedDate);
+      formattedDate = DateFormat('dd-MM-yy').format(selectedDate!);
       notifyListeners();
       // });
     }
@@ -54,7 +64,6 @@ class ProjectViewModel with ChangeNotifier {
 
   ApiResponse<ProjectListModel> projectList = ApiResponse.loading();
   ApiResponse<Project> projectDetail = ApiResponse.loading();
-  // Project get selectProject => _selectProject;
 
   // ALL PROJECTS
   setProjectList(ApiResponse<ProjectListModel> response) {
@@ -114,15 +123,9 @@ class ProjectViewModel with ChangeNotifier {
           if (kDebugMode) {
             print(value.toString());
             fieldsClear();
-            // clearFields();
-            // Navigator.of(context).push(
-            //   CustomPageRouter(
-            //     child: const MyHome(),
-            //     direction: AxisDirection.left,
-            //   ),
-            // );
             // Navigator.pushNamed(context, RouteName.login);
             Navigator.of(context).pop();
+            fetchProjectsListApi();
             Utils.loadingFlushBarMessage(
               'Project Created Successfully!',
               context,

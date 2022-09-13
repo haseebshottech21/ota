@@ -205,7 +205,8 @@ class AuthViewModel extends ChangeNotifier {
           setLoad(false);
           if (kDebugMode) {
             print(value.toString());
-            // Navigator.of(context).pop();
+            showUserProfile();
+            Navigator.of(context).pop();
             Utils.loadingFlushBarMessage(
               'Profile Update Successfully!',
               context,
@@ -214,7 +215,6 @@ class AuthViewModel extends ChangeNotifier {
           }
         },
       );
-      showUserProfile();
     }).onError((error, stackTrace) {
       setLoad(false);
       Utils.errorFlushBarMessage(error.toString(), context);

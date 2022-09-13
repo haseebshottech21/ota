@@ -91,6 +91,7 @@ class _CreateProjectState extends State<CreateProject> {
   @override
   Widget build(BuildContext context) {
     final category = context.watch<CategoriesViewModel>();
+    // final project = context.watch<ProjectViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -104,6 +105,7 @@ class _CreateProjectState extends State<CreateProject> {
           icon: const Icon(CupertinoIcons.clear, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pop();
+            context.read<ProjectViewModel>().fieldsClear();
           },
         ),
         automaticallyImplyLeading: true,

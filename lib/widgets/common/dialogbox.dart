@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-Future<void> simpleDialog({
+simpleDialog({
   required BuildContext context,
   required String title,
   required String subTitle,
-  required VoidCallback onPressed,
+  required Function press,
 }) {
   return showDialog(
     context: context,
@@ -36,13 +36,15 @@ Future<void> simpleDialog({
             },
           ),
           TextButton(
-            onPressed: onPressed,
             child: const Text(
               'Confirm',
               style: TextStyle(
                 color: Colors.black,
               ),
             ),
+            onPressed: () {
+              press();
+            },
           ),
         ],
       );

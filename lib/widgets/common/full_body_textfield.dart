@@ -34,10 +34,12 @@ class ProjectTitleField extends StatelessWidget {
           Consumer<ProjectViewModel>(
             builder: (context, projectViewModel, _) {
               return TextButton(
-                onPressed: () {
-                  projectViewModel.selectTitleController(titleController);
-                  Navigator.of(context).pop();
-                },
+                onPressed: titleController.text.isEmpty
+                    ? null
+                    : () {
+                        projectViewModel.selectTitleController(titleController);
+                        Navigator.of(context).pop();
+                      },
                 child: const Text('Save'),
               );
             },
@@ -100,10 +102,13 @@ class ProjectDetailField extends StatelessWidget {
           Consumer<ProjectViewModel>(
             builder: (context, projectViewModel, _) {
               return TextButton(
-                onPressed: () {
-                  projectViewModel.selectDetailController(detailController);
-                  Navigator.of(context).pop();
-                },
+                onPressed: detailController.text.isEmpty
+                    ? null
+                    : () {
+                        projectViewModel
+                            .selectDetailController(detailController);
+                        Navigator.of(context).pop();
+                      },
                 child: const Text('Save'),
               );
             },

@@ -12,7 +12,7 @@ class LeadRepository {
   Future<dynamic> createSubLeads(dynamic data) async {
     try {
       dynamic response =
-          await _apiServices.getPostApiResponse(AppUrl.registerEndPoint, data);
+          await _apiServices.getPostApiResponse(AppUrl.subLeadsEndPoint, data);
       // print(response);
       return response;
     } catch (e) {
@@ -46,7 +46,7 @@ class LeadRepository {
     try {
       dynamic response = await _apiServices
           .getDeleteApiResponse(AppUrl.subLeadsEndPoint + '/$leadId');
-      // print(response);
+      print(response);
       return response;
     } catch (e) {
       // print(e.toString());

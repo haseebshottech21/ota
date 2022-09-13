@@ -8,6 +8,7 @@ import 'package:ota/pages/leads/sub_lead_detail.dart';
 import 'package:ota/pages/profile/notifications.dart';
 import 'package:ota/pages/profile/update_password.dart';
 import 'package:ota/pages/projects/create_project.dart';
+import 'package:ota/pages/projects/project_comments.dart';
 import 'package:ota/pages/projects/project_detail.dart';
 import 'package:ota/utils/routes/routes_name.dart';
 import '../../pages/profile/update_profile.dart';
@@ -37,10 +38,18 @@ class RouteGenerator {
           settings: settings,
           builder: (ctx) => const MyHome(),
         );
+      // PROJECTS
       case RouteName.projectDetail:
         return MaterialPageRoute(
           settings: settings,
           builder: (ctx) => const ProjectDetail(),
+        );
+      case RouteName.projectComments:
+        return CustomPageRouter(
+          child: const ProjectComments(),
+          settings: settings,
+          direction: AxisDirection.up,
+          milisecond: 200,
         );
       // SUB LEAD
       case RouteName.createSubLeadD:
